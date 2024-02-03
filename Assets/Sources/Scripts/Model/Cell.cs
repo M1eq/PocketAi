@@ -3,15 +3,19 @@ using UnityEngine.UI;
 
 public class Cell : MonoBehaviour
 {
-    private Image _cellImage;
+    public bool Occupied => _occupiedItem != null;
 
-    public void Occupie(DraggableItem draggableItem)
+    [SerializeField] private Image _cellImage;
+
+    private InventoryItem _occupiedItem; 
+
+    public void Occupie(InventoryItem InventoryItem)
     {
-        draggableItem.SetSnapParent(_cellImage.transform);
-        draggableItem.transform.parent = _cellImage.transform;
-        draggableItem.transform.localPosition = Vector3.zero;
-        draggableItem.transform.localScale = Vector3.one;
-    }
+        InventoryItem.DraggableItem.SetSnapParent(_cellImage.transform);
+        InventoryItem.transform.parent = _cellImage.transform;
+        InventoryItem.transform.localPosition = Vector3.zero;
+        InventoryItem.transform.localScale = Vector3.one;
 
-    private void Awake() => _cellImage = GetComponent<Image>();
+        _occupiedItem = InventoryItem;
+    }
 }

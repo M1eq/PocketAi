@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8597644d6e798664bb9a6221a7bc7656, type: 3}
+  m_Name: BodyArmor
+  m_EditorClassIdentifier: 
+  <ItemTitle>k__BackingField: "\u0411\u0440\u043E\u043D\u0435\u0436\u0438\u043B\u0435\u0442"
+  <ItemSprite>k__BackingField: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  <ItemType>k__BackingField: 1
+  <CountInStack>k__BackingField: 1
+  <OneItemWeight>k__BackingField: 10
+  <ActionTitle>k__BackingField: "\u042D\u043A\u0438\u043F\u0438\u0440\u043E\u0432\u0430\u0442\u044C"
+  <ProtectionScoreCount>k__BackingField: 10
