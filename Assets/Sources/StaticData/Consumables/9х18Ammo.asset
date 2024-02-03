@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: "9\u044518Ammo"
   m_EditorClassIdentifier: 
   <ItemTitle>k__BackingField: "\u041F\u0430\u0442\u0440\u043E\u043D\u044B 9\u044518\u043C\u043C"
-  <ItemSprite>k__BackingField: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  <ItemSprite>k__BackingField: {fileID: 21300000, guid: 7f21690e1577c8b40b902c48cbcdf445, type: 3}
+  <ItemType>k__BackingField: 0
   <CountInStack>k__BackingField: 50
   <OneItemWeight>k__BackingField: 0.01
   <ActionTitle>k__BackingField: "\u041A\u0443\u043F\u0438\u0442\u044C"

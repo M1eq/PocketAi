@@ -445,7 +445,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startItems:
   - {fileID: 9165813164478435954, guid: 50ea7c83cdfb67c40954790faaf0fab8, type: 3}
-  - {fileID: 9165813164478435954, guid: 50ea7c83cdfb67c40954790faaf0fab8, type: 3}
+  - {fileID: -7087391408858508496, guid: 8aa62c29e4095f2418dcbdb9e5161583, type: 3}
+  - {fileID: -7087391408858508496, guid: 163189529c6d8d646a559c1094538bbe, type: 3}
+  - {fileID: 4965341790923460169, guid: 8e7cb2e3cd7c42844973025f923cfd76, type: 3}
+  - {fileID: 4965341790923460169, guid: 5e05fd9fec3fe8443b0b8bd0abd7d32e, type: 3}
+  - {fileID: -5475211052578058673, guid: 21adc35d415ebd2408de26f03cdc98a7, type: 3}
+  - {fileID: -5475211052578058673, guid: 5b943931b49a0b74494ed67c0bb039bd, type: 3}
   _lootItems: []
   _cells:
   - {fileID: 8483534412082468133}
