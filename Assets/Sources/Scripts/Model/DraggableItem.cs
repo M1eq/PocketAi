@@ -1,18 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class DraggableItem : MonoBehaviour
+[RequireComponent(typeof(RectTransform))]
+public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private Canvas _gameAreaCanvas;
+    [SerializeField] private RectTransform _rectTransform;
+    [SerializeField] private Image _draggableItemImage;
+
+    private Transform _snapParent;
+
+    public void Construct(Canvas gameAreaCanvas)
     {
-        
+        _gameAreaCanvas = gameAreaCanvas;
+        _rectTransform = GetComponent<RectTransform>();
+        _draggableItemImage = GetComponent<Image>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnBeginDrag(PointerEventData eventData)
     {
-        
+        SetSnapParent(transform.parent);
+        transform.SetParent(transform.root);
+        transform.SetAsLastSibling();
+
+        _draggableItemImage.raycastTarget = false;
     }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        transform.parent = _snapParent;
+        transform.localPosition = Vector3.zero;
+
+        _draggableItemImage.raycastTarget = true;
+    }
+
+    public void OnDrag(PointerEventData eventData) =>
+        _rectTransform.anchoredPosition += eventData.delta / _gameAreaCanvas.scaleFactor;
+
+    public void SetSnapParent(Transform snapParent) => _snapParent = snapParent;
 }
