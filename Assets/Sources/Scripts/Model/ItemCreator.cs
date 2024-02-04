@@ -1,15 +1,25 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class ItemCreator : MonoBehaviour
 {
-    [SerializeField] private InventoryItem[] _startItems;
-    [SerializeField] private InventoryItem[] _lootItems;
+    [SerializeField] private InventoryItemPresenter[] _startItems;
+    [SerializeField] private InventoryItemPresenter[] _lootItems;
     [SerializeField] private Cell[] _cells;
 
     private List<Cell> _emptyCells = new List<Cell>();
+    private InteractionPanelShower _interactionPanelShower;
+    private Canvas _inventoryCanvas;
 
     private bool CanCreateStartItems => _emptyCells.Count >= _startItems.Length;
+
+    [Inject]
+    private void Construct(InteractionPanelShower interactionPanelShower, Canvas inventoryCanvas)
+    {
+        _interactionPanelShower = interactionPanelShower;
+        _inventoryCanvas = inventoryCanvas;
+    }
 
     public void TryCreateStartItems()
     {
@@ -19,12 +29,13 @@ public class ItemCreator : MonoBehaviour
         {
             for (int i = 0; i < _startItems.Length; i++)
             {
-                InventoryItem startItem = Instantiate(_startItems[i]);
+                InventoryItemPresenter startItemPresenter = Instantiate(_startItems[i]);
+                startItemPresenter.Initialize(_interactionPanelShower, _inventoryCanvas);
 
-                startItem.FillStack();
-                startItem.InitializeItem();
+                startItemPresenter.InventoryItem.FillStack();
+                startItemPresenter.InventoryItem.InitializeItem();
 
-                _emptyCells[i].Occupie(startItem);
+                _emptyCells[i].Occupie(startItemPresenter.InventoryItem);
             }
         }
     }
@@ -43,10 +54,5 @@ public class ItemCreator : MonoBehaviour
             if (cell.Occupied == false && _emptyCells.Contains(cell) == false)
                 _emptyCells.Add(cell);
         }
-    }
-
-    private void Awake()
-    {
-        TryCreateStartItems();
     }
 }

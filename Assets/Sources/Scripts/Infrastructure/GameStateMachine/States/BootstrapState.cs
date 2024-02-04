@@ -11,5 +11,5 @@ public class BootstrapState : IState
     }
 
     public void Enter() => _sceneLoader.LoadScene(InitialSceneName, OnInitialSceneLoaded);
-    private void OnInitialSceneLoaded() => _gameStateMachine.Enter<DataLoadState>();
+    private void OnInitialSceneLoaded() => _gameStateMachine.Enter<MainSceneLoaderState>();
 }

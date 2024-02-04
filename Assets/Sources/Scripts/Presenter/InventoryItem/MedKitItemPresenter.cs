@@ -7,6 +7,8 @@ public class MedKitItemPresenter : InventoryItemPresenter
 
     private MedKitParameters _medKitParameters;
 
+    protected override InventoryItem GetInventoryItem() => _medKit;
+
     protected override void RemoveAllActionListeners()
     {
         _medKit.ItemsCountChanged -= OnItemCountChanged;

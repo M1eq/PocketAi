@@ -5,15 +5,15 @@ using UnityEngine.UI;
 [RequireComponent(typeof(RectTransform))]
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    [SerializeField] private Canvas _gameAreaCanvas;
-    [SerializeField] private RectTransform _rectTransform;
-    [SerializeField] private Image _draggableItemImage;
-
+    private Canvas _inventoryCanvas;
+    private RectTransform _rectTransform;
+    private Image _draggableItemImage;
     private Transform _snapParent;
     private Cell _currentCell;
-    public void Construct(Canvas gameAreaCanvas)
+
+    public void Initialize(Canvas inventoryCanvas)
     {
-        _gameAreaCanvas = gameAreaCanvas;
+        _inventoryCanvas = inventoryCanvas;
         _rectTransform = GetComponent<RectTransform>();
         _draggableItemImage = GetComponent<Image>();
     }
@@ -21,7 +21,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnBeginDrag(PointerEventData eventData)
     {
         SetSnapParent(transform.parent, _currentCell);
-        transform.SetParent(transform.root);
+        transform.SetParent(_inventoryCanvas.transform);
         transform.SetAsLastSibling();
 
         _draggableItemImage.raycastTarget = false;
@@ -36,7 +36,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     }
 
     public void OnDrag(PointerEventData eventData) =>
-        _rectTransform.anchoredPosition += eventData.delta / _gameAreaCanvas.scaleFactor;
+        _rectTransform.anchoredPosition += eventData.delta / _inventoryCanvas.scaleFactor;
 
     public void SetSnapParent(Transform snapParent, Cell cell)
     {

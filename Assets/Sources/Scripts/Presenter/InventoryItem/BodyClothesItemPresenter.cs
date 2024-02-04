@@ -3,15 +3,17 @@ using UnityEngine.UI;
 
 public class BodyClothesItemPresenter : InventoryItemPresenter
 {
-    [SerializeField] private BodyClothes bodyClothes;
+    [SerializeField] private BodyClothes _bodyClothes;
 
     private BodyClothesParameters _bodyClothesParameters;
 
+    protected override InventoryItem GetInventoryItem() => _bodyClothes;
+
     protected override void RemoveAllActionListeners()
     {
-        bodyClothes.ItemsCountChanged -= OnItemCountChanged;
-        bodyClothes.ItemDestroyed -= OnItemDestroyed;
-        bodyClothes.BodyClothesInitializing -= OnBodyClothesInitializing;
+        _bodyClothes.ItemsCountChanged -= OnItemCountChanged;
+        _bodyClothes.ItemDestroyed -= OnItemDestroyed;
+        _bodyClothes.BodyClothesInitializing -= OnBodyClothesInitializing;
     }
 
     private void OnBodyClothesInitializing(BodyClothesParameters bodyClothesParameters, Image bodyClothesImage)
@@ -22,9 +24,9 @@ public class BodyClothesItemPresenter : InventoryItemPresenter
 
     private void OnEnable()
     {
-        bodyClothes.ItemsCountChanged += OnItemCountChanged;
-        bodyClothes.ItemDestroyed += OnItemDestroyed;
-        bodyClothes.BodyClothesInitializing += OnBodyClothesInitializing;
+        _bodyClothes.ItemsCountChanged += OnItemCountChanged;
+        _bodyClothes.ItemDestroyed += OnItemDestroyed;
+        _bodyClothes.BodyClothesInitializing += OnBodyClothesInitializing;
     }
 
     private void OnDisable() => RemoveAllActionListeners();

@@ -11,7 +11,7 @@ public class GameStateMachine
         _states = new Dictionary<Type, IState>()
         {
             [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
-            [typeof(DataLoadState)] = new DataLoadState(this)
+            [typeof(MainSceneLoaderState)] = new MainSceneLoaderState(sceneLoader)
         };
     }
 

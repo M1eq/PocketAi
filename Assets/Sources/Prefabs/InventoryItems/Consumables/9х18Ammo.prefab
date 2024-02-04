@@ -271,7 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b960bd47b451d742a717609425915f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameAreaCanvas: {fileID: 0}
+  _inventoryCanvas: {fileID: 0}
   _rectTransform: {fileID: 7467897996623479117}
   _draggableItemImage: {fileID: 6900377738593103906}
 --- !u!114 &1701755789314091959
@@ -300,10 +300,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemCountShower: {fileID: 1701755789314091959}
+  _draggableItem: {fileID: 4308594997984691224}
   _ammo: {fileID: -7087391408858508496}
-  _ineractionPanelButton: {fileID: 1298486332979038986}
-  _interactionPanelShower: {fileID: 0}
-  _interactionPanel: {fileID: 0}
+  _activationPanelButton: {fileID: 1298486332979038986}
 --- !u!114 &-7087391408858508496
 MonoBehaviour:
   m_ObjectHideFlags: 0

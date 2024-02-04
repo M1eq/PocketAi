@@ -4,36 +4,44 @@ using UnityEngine.UI;
 public class AmmoItemPresenter : InventoryItemPresenter
 {
     [SerializeField] private Ammo _ammo;
-    [SerializeField] private Button _ineractionPanelButton;
-    [SerializeField] private InteractionPanelShower _interactionPanelShower;
+    [SerializeField] private Button _activationPanelButton;
 
+    private InteractionPanelShower _interactionPanel;
     private AmmoParameters _ammoParameters;
+
+    protected override InventoryItem GetInventoryItem() => _ammo;
 
     protected override void RemoveAllActionListeners()
     {
         _ammo.ItemsCountChanged -= OnItemCountChanged;
         _ammo.ItemDestroyed -= OnItemDestroyed;
         _ammo.AmmoInitializing -= OnAmmoInitializing;
+        _activationPanelButton.onClick.RemoveAllListeners();
 
-        _ineractionPanelButton.onClick.RemoveAllListeners();
-        _interactionPanelShower.DeleteButton.onClick.RemoveAllListeners();
+        if (_interactionPanel != null)
+            _interactionPanel.DeleteButton.onClick.RemoveAllListeners();
     }
 
     private void OnAmmoInitializing(AmmoParameters ammoParameters, Image ammoImage)
     {
         ammoImage.sprite = ammoParameters.ItemSprite;
         _ammoParameters = ammoParameters;
+
+        _interactionPanel = GetInteractionPanel();
     }
 
-    private void OnInteractionPanelButtonPressed()
+    private void OnActivationPanelButtonPressed()
     {
-        _interactionPanelShower.DeleteButton.onClick.RemoveAllListeners();
+        _interactionPanel.DeleteButton.onClick.RemoveAllListeners();
 
-        _interactionPanelShower.ShowConsumablesPanel(
+        _interactionPanel.ShowConsumablesPanel(
             _ammoParameters.ItemTitle, _ammoParameters.ActionTitle, _ammoParameters.ItemSprite);
 
-        _interactionPanelShower.DeleteButton.onClick.AddListener(() => _ammo.TryDecreaseCount());
-        _interactionPanelShower.DeleteButton.onClick.AddListener(() => _interactionPanelShower.gameObject.SetActive(false));
+        _interactionPanel.DeleteButton.onClick.AddListener(() => _ammo.TryDecreaseCount());
+        _interactionPanel.DeleteButton.onClick.AddListener(() => _interactionPanel.gameObject.SetActive(false));
+
+        _interactionPanel.InteractionButton.onClick.AddListener(() => _ammo.FillStack());
+        _interactionPanel.InteractionButton.onClick.AddListener(() => _interactionPanel.gameObject.SetActive(false));
     }
 
     private void OnEnable()
@@ -42,7 +50,7 @@ public class AmmoItemPresenter : InventoryItemPresenter
         _ammo.ItemDestroyed += OnItemDestroyed;
         _ammo.AmmoInitializing += OnAmmoInitializing;
 
-        _ineractionPanelButton.onClick.AddListener(() => OnInteractionPanelButtonPressed());
+        _activationPanelButton.onClick.AddListener(() => OnActivationPanelButtonPressed());
     }
 
     private void OnDisable() => RemoveAllActionListeners();
