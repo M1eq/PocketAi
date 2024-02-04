@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class Ammo : InventoryItem
 {
+    public AmmoType AmmoType => _ammoParameters.AmmoType;
     public event UnityAction<AmmoParameters, Image> AmmoInitializing;
 
     [SerializeField] private AmmoParameters _ammoParameters;

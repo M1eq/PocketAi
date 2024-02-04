@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class Cell : MonoBehaviour
 {
     public bool Occupied => _occupiedItem != null;
+    public InventoryItem OccupiedItem => _occupiedItem; 
 
     [SerializeField] private Image _cellImage;
 

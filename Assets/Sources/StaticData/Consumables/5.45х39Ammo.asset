@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ItemTitle>k__BackingField: "\u041F\u0430\u0442\u0440\u043E\u043D\u044B 5.45\u044539\u043C\u043C"
   <ItemSprite>k__BackingField: {fileID: 21300000, guid: 25fb95226f22d8941a2414b1a5538041, type: 3}
-  <ItemType>k__BackingField: 0
   <CountInStack>k__BackingField: 100
   <OneItemWeight>k__BackingField: 0.03
   <ActionTitle>k__BackingField: "\u041A\u0443\u043F\u0438\u0442\u044C"
   <OneAmmoPrice>k__BackingField: 0
+  <AmmoType>k__BackingField: 1

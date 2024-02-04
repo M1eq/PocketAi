@@ -226,6 +226,7 @@ GameObject:
   - component: {fileID: 1496415321}
   - component: {fileID: 1496415320}
   - component: {fileID: 1496415322}
+  - component: {fileID: 1496415323}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -248,6 +249,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 1496415322}
+  - {fileID: 1496415323}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -293,10 +295,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameAreaParent: {fileID: 2022016530}
-  _fightCanvasPrefab: {fileID: 7080699889273653778, guid: fb554ef066407dd4da218fa9ecbba862, type: 3}
   _inventoryCanvasPrefab: {fileID: 6733542821462917151, guid: b8d54707c36808d4e8a93e5cf0707457, type: 3}
   _itemCreatorPrefab: {fileID: 2411176572989206386, guid: 8e824532453c2824a8ef0ad4d249c792, type: 3}
   _interactionPanelPrefab: {fileID: 9103019526288832210, guid: 8f66ef1425de4624b861386dd61ed92c, type: 3}
+--- !u!114 &1496415323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1496415319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4785f599e4717614ba72ee9ddaf43a76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyCharacterPrefab: {fileID: 1070992772792520782, guid: 19272be558e4eed4ca499137579d3927, type: 3}
+  _playerCharacterPrefab: {fileID: 2894734740806674768, guid: 165cfa3a3bfb3964d890893b4bdd0b6e, type: 3}
+  _battlePresenterPrefab: {fileID: 3111912947250331615, guid: c8e183967959d0d4eb59968a6dcbee24, type: 3}
+  _battleCanvasPrefab: {fileID: 7080699889273653778, guid: fb554ef066407dd4da218fa9ecbba862, type: 3}
+  _gameAreaParent: {fileID: 2022016530}
 --- !u!1 &1514929153
 GameObject:
   m_ObjectHideFlags: 0

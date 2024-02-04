@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Health : MonoBehaviour
+public class Health
 {
     public event UnityAction Died;
     public event UnityAction<int> HealthCountChanged;

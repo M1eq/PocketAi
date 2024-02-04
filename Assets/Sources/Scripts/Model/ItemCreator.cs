@@ -4,6 +4,8 @@ using Zenject;
 
 public class ItemCreator : MonoBehaviour
 {
+    public Cell[] InventoryCells => _cells;
+
     [SerializeField] private InventoryItemPresenter[] _startItems;
     [SerializeField] private InventoryItemPresenter[] _lootItems;
     [SerializeField] private Cell[] _cells;
