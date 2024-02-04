@@ -19,7 +19,10 @@ public class AmmoItemPresenter : InventoryItemPresenter
         _activationPanelButton.onClick.RemoveAllListeners();
 
         if (_interactionPanel != null)
+        {
             _interactionPanel.DeleteButton.onClick.RemoveAllListeners();
+            _interactionPanel.InteractionButton.onClick.RemoveAllListeners();
+        }
     }
 
     private void OnAmmoInitializing(AmmoParameters ammoParameters, Image ammoImage)
@@ -33,6 +36,7 @@ public class AmmoItemPresenter : InventoryItemPresenter
     private void OnActivationPanelButtonPressed()
     {
         _interactionPanel.DeleteButton.onClick.RemoveAllListeners();
+        _interactionPanel.InteractionButton.onClick.RemoveAllListeners();
 
         _interactionPanel.ShowConsumablesPanel(
             _ammoParameters.ItemTitle, _ammoParameters.ActionTitle, _ammoParameters.ItemSprite);
