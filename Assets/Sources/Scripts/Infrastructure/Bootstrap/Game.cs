@@ -4,8 +4,8 @@ public class Game
 
     public void ActivateBootstrapState() => _gameStateMachine.Enter<BootstrapState>();
 
-    public Game()
+    public Game(GameBootstrapper gameBootstrapper)
     {
-        _gameStateMachine = new GameStateMachine();
+        _gameStateMachine = new GameStateMachine(new SceneLoader(gameBootstrapper));
     }
 }

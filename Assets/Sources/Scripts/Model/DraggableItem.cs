@@ -10,7 +10,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [SerializeField] private Image _draggableItemImage;
 
     private Transform _snapParent;
-
+    private Cell _currentCell;
     public void Construct(Canvas gameAreaCanvas)
     {
         _gameAreaCanvas = gameAreaCanvas;
@@ -20,7 +20,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        SetSnapParent(transform.parent);
+        SetSnapParent(transform.parent, _currentCell);
         transform.SetParent(transform.root);
         transform.SetAsLastSibling();
 
@@ -38,5 +38,12 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void OnDrag(PointerEventData eventData) =>
         _rectTransform.anchoredPosition += eventData.delta / _gameAreaCanvas.scaleFactor;
 
-    public void SetSnapParent(Transform snapParent) => _snapParent = snapParent;
+    public void SetSnapParent(Transform snapParent, Cell cell)
+    {
+        if (_currentCell != null)
+            _currentCell.ResetCell();
+
+        _currentCell = cell;
+        _snapParent = snapParent;
+    }
 }

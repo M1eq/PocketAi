@@ -11,11 +11,13 @@ public class Cell : MonoBehaviour
 
     public void Occupie(InventoryItem InventoryItem)
     {
-        InventoryItem.DraggableItem.SetSnapParent(_cellImage.transform);
+        InventoryItem.DraggableItem.SetSnapParent(_cellImage.transform, this);
         InventoryItem.transform.parent = _cellImage.transform;
         InventoryItem.transform.localPosition = Vector3.zero;
         InventoryItem.transform.localScale = Vector3.one;
 
         _occupiedItem = InventoryItem;
     }
+
+    public void ResetCell() => _occupiedItem = null;
 }
