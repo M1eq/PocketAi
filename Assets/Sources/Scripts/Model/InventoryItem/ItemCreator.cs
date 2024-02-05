@@ -9,8 +9,6 @@ public class ItemCreator : MonoBehaviour
     [SerializeField] private InventoryItemPresenter[] _items;
     [SerializeField] private Cell[] _cells;
 
-    private const int NewLootValue = 1;
-    private const int IncreaseLootValue = 0;
     private List<Cell> _emptyCells = new List<Cell>();
     private List<Cell> _notStackOccupiedCells = new List<Cell>();
     private InteractionPanelShower _interactionPanelShower;
@@ -39,24 +37,29 @@ public class ItemCreator : MonoBehaviour
         if (CanCreateStartItems)
         {
             for (int i = 0; i < _items.Length; i++)
-            { 
+            {
                 CreateItem(_items[i], _emptyCells[i], _items[i].InventoryItem.StackCount);
                 SaveCreatedItem(_items[i].InventoryItem.ItemID, _items[i].InventoryItem.StackCount);
             }
         }
     }
 
-    public void TryRestoreSavedItems(JsonSaveSystem jsonSaveSystem)
+    public void TryRestoreSavedItems(JsonSaveSystem jsonSaveSystem, ClothesEquiper clothesEquiper)
     {
+        _jsonSaveSystem = jsonSaveSystem;
+
+        TryRestoreHeadClothes(clothesEquiper);
+        TryRestoreBodyClothes(clothesEquiper);
+
         InitializeCells();
 
-        for (int i = 0; i < jsonSaveSystem.SaveData.ItemsId.Count; i++)
+        for (int i = 0; i < _jsonSaveSystem.SaveData.ItemsId.Count; i++)
         {
             for (int j = 0; j < _items.Length; j++)
             {
-                if (jsonSaveSystem.SaveData.ItemsId[i] == _items[j].InventoryItem.ItemID)
+                if (_jsonSaveSystem.SaveData.ItemsId[i] == _items[j].InventoryItem.ItemID)
                 {
-                    CreateItem(_items[j], _emptyCells[i], jsonSaveSystem.SaveData.InventoryItemsCount[i]);
+                    CreateItem(_items[j], _emptyCells[i], _jsonSaveSystem.SaveData.InventoryItemsCount[i]);
                 }
             }
         }
@@ -65,14 +68,8 @@ public class ItemCreator : MonoBehaviour
     public void TryCreateRandomLoot()
     {
         InitializeCells();
-        int lootValue = Random.Range(0, 2);
 
-        if (_notStackOccupiedCells.Count > 0 && lootValue == IncreaseLootValue)
-        {
-            int itemNumber = Random.Range(0, _notStackOccupiedCells.Count);
-            _notStackOccupiedCells[itemNumber].OccupiedItem.TryIncreaseCount();
-        }
-        else if (_emptyCells.Count > 0 && lootValue == NewLootValue)
+        if (_emptyCells.Count > 0)
         {
             int itemNumber = Random.Range(0, _items.Length);
             int cellNumber = Random.Range(0, _emptyCells.Count);
@@ -117,6 +114,45 @@ public class ItemCreator : MonoBehaviour
         cell.Occupie(itemPresenter.InventoryItem);
     }
 
+    private InventoryItem CreateItem(InventoryItemPresenter itemPrefab, int itemCount)
+    {
+        InventoryItemPresenter itemPresenter = Instantiate(itemPrefab);
+        itemPresenter.Initialize(_interactionPanelShower, _inventoryCanvas);
+
+        TryInitializeMedKit(itemPresenter);
+        TryInitializeBodyClothes(itemPresenter);
+        TryInitializeHeadClothes(itemPresenter);
+
+        itemPresenter.InventoryItem.SetItemCount(itemCount);
+        itemPresenter.InventoryItem.InitializeItem();
+
+        return itemPresenter.InventoryItem;
+    }
+
+    private void TryRestoreHeadClothes(ClothesEquiper clothesEquiper)
+    {
+        for (int i = 0; i < _items.Length; i++)
+        {
+            if (_jsonSaveSystem.SaveData.EquipedHeadClothesId == _items[i].InventoryItem.ItemID)
+            {
+                InventoryItem headClothes = CreateItem(_items[i], _items[i].InventoryItem.StackCount);
+                clothesEquiper.EquipHeadClothes((HeadClothes)headClothes);
+            }
+        }
+    }
+
+    private void TryRestoreBodyClothes(ClothesEquiper clothesEquiper)
+    {
+        for (int i = 0; i < _items.Length; i++)
+        {
+            if (_jsonSaveSystem.SaveData.EquipedBodyClothesId == _items[i].InventoryItem.ItemID)
+            {
+                InventoryItem bodyClothes = CreateItem(_items[i], _items[i].InventoryItem.StackCount);
+                clothesEquiper.EquipBodyClothes((BodyClothes)bodyClothes);
+            }
+        }
+    }
+
     private void TryInitializeMedKit(InventoryItemPresenter itemPresenter)
     {
         if (itemPresenter.TryGetComponent<MedKitItemPresenter>(out MedKitItemPresenter medKitItemPresenter))
@@ -127,8 +163,8 @@ public class ItemCreator : MonoBehaviour
     {
         if (itemPresenter.TryGetComponent<BodyClothesItemPresenter>(out BodyClothesItemPresenter bodyClothesItemPresenter))
             bodyClothesItemPresenter.SetClothesEquiper(_clothesEquiper);
-    }    
-    
+    }
+
     private void TryInitializeHeadClothes(InventoryItemPresenter itemPresenter)
     {
         if (itemPresenter.TryGetComponent<HeadClothesItemPresenter>(out HeadClothesItemPresenter headClothesItemPresenter))

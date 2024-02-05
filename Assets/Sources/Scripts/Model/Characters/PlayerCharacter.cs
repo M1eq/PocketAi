@@ -28,11 +28,11 @@ public class PlayerCharacter : Character
         _jsonSaveSystem.SaveData.PlayerHealth = _playerHealth.CurrentHealth;
         _jsonSaveSystem.SaveData.EquipedWeaponAmmoType = _weaponEquiper.EquippedWeapon.AmmoType;
 
-        //if (_jsonSaveSystem.SaveData.EquipedBodyClothesId != null)
-        //    _jsonSaveSystem.SaveData.EquipedBodyClothesId = ClothesEquiper.BodyClothes.ItemID;
+        if (_clothesEquiper.BodyClothes != null)
+            _jsonSaveSystem.SaveData.EquipedBodyClothesId = _clothesEquiper.BodyClothes.ItemID;
 
-        //if (_jsonSaveSystem.SaveData.EquipedHeadClothesId != null)
-        //    _jsonSaveSystem.SaveData.EquipedHeadClothesId = ClothesEquiper.HeadClothes.ItemID;
+        if (_clothesEquiper.HeadClothes != null)
+            _jsonSaveSystem.SaveData.EquipedHeadClothesId = _clothesEquiper.HeadClothes.ItemID;
 
         _jsonSaveSystem.Save();
     }

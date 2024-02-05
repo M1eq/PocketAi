@@ -77,7 +77,7 @@ public class InventoryInstaller : MonoInstaller
         if (CanCreateStartItems)
             itemCreator.TryCreateStartItems(_jsonSaveSystem);
         else
-            itemCreator.TryRestoreSavedItems(_jsonSaveSystem);
+            itemCreator.TryRestoreSavedItems(_jsonSaveSystem, _clothesEquiper);
     }
 
     private void FixEvironmentHierarchy()
