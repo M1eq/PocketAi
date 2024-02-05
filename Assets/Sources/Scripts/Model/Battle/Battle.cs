@@ -13,16 +13,13 @@ public class Battle : MonoBehaviour
 
     public void LaunchBattleLoop() => StartCoroutine(BattleLoopCoroutine());
 
-    public void Initialize(PlayerCharacter playerCharacter, EnemyCharacter enemyCharacter, ItemCreator itemCreator)
+    public void Initialize(PlayerCharacter player, EnemyCharacter enemy, ItemCreator itemCreator, JsonSaveSystem jsonSaveSystem)
     {
-        _playerCharacter = playerCharacter;
-        _enemyCharacter = enemyCharacter;
+        _playerCharacter = player;
+        _enemyCharacter = enemy;
 
         _playerCharacter.Initialize();
-        _enemyCharacter.Initialize(itemCreator);
-
-        _playerCharacter.Health.RefillHealth();
-        _enemyCharacter.Health.RefillHealth();
+        _enemyCharacter.Initialize(itemCreator, jsonSaveSystem);
     }
 
     private IEnumerator BattleLoopCoroutine()
@@ -42,6 +39,9 @@ public class Battle : MonoBehaviour
             ApplyDamageToPlayer(
                 _enemyCharacter.Damage - GetPlayerProtection(_playerCharacter.ClothesEquiper.BodyClothes), false);
         }
+
+        _playerCharacter.SavePlayerData();
+        _enemyCharacter.SaveEnemyData();
 
         BattleLoopEnded?.Invoke();
     }

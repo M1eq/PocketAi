@@ -12,6 +12,7 @@ public class PlayerCharacter : Character
     private ClothesEquiper _clothesEquiper;
     private Health _playerHealth;
     private LoseMenu _loseMenu;
+    private JsonSaveSystem _jsonSaveSystem;
 
     public void Initialize()
     {
@@ -19,12 +20,23 @@ public class PlayerCharacter : Character
         _playerHealthPresenter.Initialize(_loseMenu);
     }
 
-    [Inject]
-    private void Construct(Cell[] inventoryCells, ClothesEquiper clothesEquiper, Health playerHealth, LoseMenu loseMenu)
+    public void SavePlayerData()
     {
-        _weaponEquiper.Initialize(inventoryCells);
+        _jsonSaveSystem.SaveData.PlayerHealth = _playerHealth.CurrentHealth;
+        _jsonSaveSystem.SaveData.EquipedWeapon = _weaponEquiper.EquippedWeapon;
+        _jsonSaveSystem.SaveData.EquipedBodyClothes = ClothesEquiper.BodyClothes;
+        _jsonSaveSystem.SaveData.EquipedHeadClothes = ClothesEquiper.HeadClothes;
+
+        _jsonSaveSystem.Save();
+    }
+
+    [Inject]
+    private void Construct(Cell[] cells, ClothesEquiper clothesEquiper, Health playerHealth, LoseMenu loseMenu, JsonSaveSystem jsonSaveSystem)
+    {
+        _weaponEquiper.Initialize(cells);
         _clothesEquiper = clothesEquiper;
         _playerHealth = playerHealth;
         _loseMenu = loseMenu;
+        _jsonSaveSystem = jsonSaveSystem;
     }
 }

@@ -15,6 +15,8 @@ public abstract class HealthPresenter : MonoBehaviour
     {
         _character.Health.Died += OnDied;
         _character.Health.HealthCountChanged += OnHealthCountChanged;
+
+        _character.Health.TakeDamage(0);
     }
 
     private void OnDisable()

@@ -24,11 +24,11 @@ public class BattlePresenter : MonoBehaviour
     }
 
     [Inject]
-    private void Construct(PlayerCharacter playerCharacter, EnemyCharacter enemyCharacter, ItemCreator itemCreator)
+    private void Construct(PlayerCharacter player, EnemyCharacter enemy, ItemCreator itemCreator, JsonSaveSystem saveSystem)
     {
-        _battle.Initialize(playerCharacter, enemyCharacter, itemCreator);
+        _battle.Initialize(player, enemy, itemCreator, saveSystem);
 
-        _playerCharacter = playerCharacter;
+        _playerCharacter = player;
         _playerCharacter.WeaponEquiper.WeaponEquipped += OnWeaponEquipped;
         OnEquipPistolButtonPressed();
     }

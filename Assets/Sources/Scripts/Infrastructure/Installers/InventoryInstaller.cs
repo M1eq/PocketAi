@@ -15,13 +15,24 @@ public class InventoryInstaller : MonoInstaller
     private InteractionPanelShower _interactionPanel;
     private ClothesEquiper _clothesEquiper;
     private LoseMenu _loseMenu;
+    private JsonSaveSystem _jsonSaveSystem;
 
     public override void InstallBindings()
     {
+        BindSaveSystem();
         InstantiateInventoryEnvironment();
         BindInventoryEnvironment();
+        BindPlayerHealth();
         BindItemCreator();
         FixEvironmentHierarchy();
+    }
+
+    private void BindSaveSystem()
+    {
+        _jsonSaveSystem = new JsonSaveSystem();
+        _jsonSaveSystem.Load();
+
+        Container.Bind<JsonSaveSystem>().FromNew().AsSingle();
     }
 
     private void InstantiateInventoryEnvironment()
@@ -42,8 +53,13 @@ public class InventoryInstaller : MonoInstaller
         Container.Bind<ClothesEquiper>().FromInstance(_clothesEquiper).AsSingle();
         Container.Bind<InteractionPanelShower>().FromInstance(_interactionPanel).AsSingle();
         Container.Bind<Canvas>().FromInstance(_inventoryCanvas).AsSingle();
+    }
 
-        Health health = new Health(_playerParameters.MaxHealth);
+    private void BindPlayerHealth()
+    {
+        Health health = new Health();
+        health.Initialize(_playerParameters.MaxHealth, _jsonSaveSystem.SaveData.PlayerHealth);
+
         Container.Bind<Health>().FromInstance(health).AsSingle();
     }
 

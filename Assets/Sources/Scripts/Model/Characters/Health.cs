@@ -2,14 +2,21 @@ using UnityEngine.Events;
 
 public class Health
 {
+    public int CurrentHealth => _currentHealth;
+
     public event UnityAction Died;
     public event UnityAction<int, int> HealthCountChanged;
 
-    private readonly int _maxHealth;
+    private int _maxHealth;
     private int _currentHealth;
 
-    public Health(int maxHealth) => _maxHealth = maxHealth; 
     public void RefillHealth() => _currentHealth = _maxHealth;
+
+    public void Initialize(int maxHealth, int savedHealth)
+    {
+        _maxHealth = maxHealth;
+        _currentHealth = savedHealth;
+    }
 
     public void RestoreHP(MedKitParameters medKitParameters)
     {
