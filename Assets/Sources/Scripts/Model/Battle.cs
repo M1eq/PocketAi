@@ -18,6 +18,9 @@ public class Battle : MonoBehaviour
         _playerCharacter = playerCharacter;
         _enemyCharacter = enemyCharacter;
 
+        _playerCharacter.Initialize();
+        _enemyCharacter.Initialize();
+
         _playerCharacter.Health.RefillHealth();
         _enemyCharacter.Health.RefillHealth();
     }

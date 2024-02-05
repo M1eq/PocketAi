@@ -286,6 +286,7 @@ MonoBehaviour:
   _itemCountShower: {fileID: 1701755789314091959}
   _draggableItem: {fileID: 4308594997984691224}
   _medKit: {fileID: 9165813164478435954}
+  _activationPanelButton: {fileID: 1532010386976397828}
 --- !u!114 &1701755789314091959
 MonoBehaviour:
   m_ObjectHideFlags: 0

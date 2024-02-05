@@ -1,8 +1,16 @@
 using UnityEngine;
+using UnityEngine.Events;
 
-public class Character : MonoBehaviour
+public abstract class Character : MonoBehaviour
 {
     public Health Health => _health;
+    public event UnityAction HealthInitialized;
 
-    private readonly Health _health = new Health();
+    private Health _health;
+
+    protected void InitializeHealth(Health health)
+    {
+        _health = health;
+        HealthInitialized?.Invoke();
+    }
 }

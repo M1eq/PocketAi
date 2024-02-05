@@ -11,7 +11,7 @@ public abstract class HealthPresenter : MonoBehaviour
     private void OnHealthCountChanged(int currentHealth, int maxHealth) => 
         _healthCountShower.Show(currentHealth, maxHealth);
 
-    private void OnEnable()
+    private void OnHealthInitialized()
     {
         _character.Health.Died += OnDied;
         _character.Health.HealthCountChanged += OnHealthCountChanged;
@@ -19,7 +19,17 @@ public abstract class HealthPresenter : MonoBehaviour
 
     private void OnDisable()
     {
-        _character.Health.Died -= OnDied;
-        _character.Health.HealthCountChanged -= OnHealthCountChanged;
+        _character.HealthInitialized -= OnHealthInitialized;
+
+        if (_character.Health != null)
+        {
+            _character.Health.Died -= OnDied;
+            _character.Health.HealthCountChanged -= OnHealthCountChanged;
+        }
+    }
+
+    private void OnEnable()
+    {
+        _character.HealthInitialized += OnHealthInitialized;
     }
 }

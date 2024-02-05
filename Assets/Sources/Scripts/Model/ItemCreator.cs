@@ -13,14 +13,16 @@ public class ItemCreator : MonoBehaviour
     private List<Cell> _emptyCells = new List<Cell>();
     private InteractionPanelShower _interactionPanelShower;
     private Canvas _inventoryCanvas;
+    private Health _playerHealth;
 
     private bool CanCreateStartItems => _emptyCells.Count >= _startItems.Length;
 
     [Inject]
-    private void Construct(InteractionPanelShower interactionPanelShower, Canvas inventoryCanvas)
+    private void Construct(InteractionPanelShower interactionPanel, Canvas inventoryCanvas, Health playerHealth)
     {
-        _interactionPanelShower = interactionPanelShower;
+        _interactionPanelShower = interactionPanel;
         _inventoryCanvas = inventoryCanvas;
+        _playerHealth = playerHealth;
     }
 
     public void TryCreateStartItems()
@@ -33,6 +35,9 @@ public class ItemCreator : MonoBehaviour
             {
                 InventoryItemPresenter startItemPresenter = Instantiate(_startItems[i]);
                 startItemPresenter.Initialize(_interactionPanelShower, _inventoryCanvas);
+
+                if (startItemPresenter.TryGetComponent<MedKitItemPresenter>(out MedKitItemPresenter medKitItemPresenter))
+                    medKitItemPresenter.InitializeHealth(_playerHealth);
 
                 startItemPresenter.InventoryItem.FillStack();
                 startItemPresenter.InventoryItem.InitializeItem();
