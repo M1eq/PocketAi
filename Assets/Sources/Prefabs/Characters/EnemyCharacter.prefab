@@ -52,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f6fcc179cca72b46b728592fa895673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyHealthPresenter: {fileID: 3832117734702851416}
 --- !u!114 &3832117734702851416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,7 +67,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _character: {fileID: 1070992772792520782}
   _healthCountShower: {fileID: 1560751231129286106}
-  _itemCreator: {fileID: 0}
 --- !u!114 &1560751231129286106
 MonoBehaviour:
   m_ObjectHideFlags: 0

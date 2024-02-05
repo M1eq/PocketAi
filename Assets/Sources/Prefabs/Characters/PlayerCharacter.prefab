@@ -132,6 +132,7 @@ MonoBehaviour:
   _weaponEquiper:
     _pistolWeaponParameters: {fileID: 11400000, guid: 53d968f36201b454e87679a4a8396428, type: 2}
     _automaticWeaponParameters: {fileID: 11400000, guid: 0f144f6d296acc64d8ab0a581ca7f170, type: 2}
+  _playerHealthPresenter: {fileID: 1833484522889111887}
 --- !u!114 &1833484522889111887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -146,7 +147,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _character: {fileID: 2894734740806674768}
   _healthCountShower: {fileID: 6400143685970053833}
-  _loseMenu: {fileID: 0}
 --- !u!114 &6400143685970053833
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine.Events;
 public abstract class InventoryItem : MonoBehaviour
 {
     public int ItemsCount => _itemsCount;
+    public int StackCount => GetStackCount();
     public DraggableItem DraggableItem => _draggableItem;
 
     public event UnityAction<int> ItemsCountChanged;

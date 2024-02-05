@@ -10,7 +10,10 @@ public class ItemCreator : MonoBehaviour
     [SerializeField] private InventoryItemPresenter[] _lootItems;
     [SerializeField] private Cell[] _cells;
 
+    private const int NewLootValue = 1;
+    private const int IncreaseLootValue = 0;
     private List<Cell> _emptyCells = new List<Cell>();
+    private List<Cell> _notStackOccupiedCells = new List<Cell>();
     private InteractionPanelShower _interactionPanelShower;
     private Canvas _inventoryCanvas;
     private Health _playerHealth;
@@ -27,39 +30,66 @@ public class ItemCreator : MonoBehaviour
 
     public void TryCreateStartItems()
     {
-        InitializeEmptyCells();
+        InitializeCells();
 
         if (CanCreateStartItems)
         {
             for (int i = 0; i < _startItems.Length; i++)
-            {
-                InventoryItemPresenter startItemPresenter = Instantiate(_startItems[i]);
-                startItemPresenter.Initialize(_interactionPanelShower, _inventoryCanvas);
-
-                if (startItemPresenter.TryGetComponent<MedKitItemPresenter>(out MedKitItemPresenter medKitItemPresenter))
-                    medKitItemPresenter.InitializeHealth(_playerHealth);
-
-                startItemPresenter.InventoryItem.FillStack();
-                startItemPresenter.InventoryItem.InitializeItem();
-
-                _emptyCells[i].Occupie(startItemPresenter.InventoryItem);
+            { 
+                CreateItem(_startItems[i], _emptyCells[i]);
             }
         }
     }
 
     public void TryCreateRandomLoot()
     {
-        InitializeEmptyCells();
+        InitializeCells();
+        int lootValue = Random.Range(0, 2);
+
+        if (_notStackOccupiedCells.Count > 0 && lootValue == IncreaseLootValue)
+        {
+            int itemNumber = Random.Range(0, _notStackOccupiedCells.Count);
+            _notStackOccupiedCells[itemNumber].OccupiedItem.TryIncreaseCount();
+        }
+        else if (_emptyCells.Count > 0 && lootValue == NewLootValue)
+        {
+            int itemNumber = Random.Range(0, _lootItems.Length);
+            int cellNumber = Random.Range(0, _emptyCells.Count);
+            CreateItem(_lootItems[itemNumber], _emptyCells[cellNumber]);
+        }
     }
 
-    private void InitializeEmptyCells()
+    private void InitializeCells()
     {
         _emptyCells.Clear();
+        _notStackOccupiedCells.Clear();
 
         foreach (Cell cell in _cells)
         {
             if (cell.Occupied == false && _emptyCells.Contains(cell) == false)
+            {
                 _emptyCells.Add(cell);
+            }
+
+            if (cell.Occupied == true && _emptyCells.Contains(cell) == false)
+            {
+                if (cell.OccupiedItem.ItemsCount < cell.OccupiedItem.StackCount)
+                    _notStackOccupiedCells.Add(cell);
+            }
         }
+    }
+
+    private void CreateItem(InventoryItemPresenter itemPrefab, Cell cell)
+    {
+        InventoryItemPresenter itemPresenter = Instantiate(itemPrefab);
+        itemPresenter.Initialize(_interactionPanelShower, _inventoryCanvas);
+
+        if (itemPresenter.TryGetComponent<MedKitItemPresenter>(out MedKitItemPresenter medKitItemPresenter))
+            medKitItemPresenter.InitializeHealth(_playerHealth);
+
+        itemPresenter.InventoryItem.FillStack();
+        itemPresenter.InventoryItem.InitializeItem();
+
+        cell.Occupie(itemPresenter.InventoryItem);
     }
 }

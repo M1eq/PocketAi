@@ -1,8 +1,8 @@
-using UnityEngine;
-
 public class EnemyHealthPresenter : HealthPresenter
 {
-    [SerializeField] private ItemCreator _itemCreator;
+    private ItemCreator _itemCreator;
+
+    public void Initialize(ItemCreator itemCreator) => _itemCreator = itemCreator;
 
     protected override void OnDied()
     {

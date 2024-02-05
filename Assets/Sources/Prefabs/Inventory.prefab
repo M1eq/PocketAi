@@ -57,7 +57,14 @@ MonoBehaviour:
   - {fileID: -3030835653801942120, guid: 5e05fd9fec3fe8443b0b8bd0abd7d32e, type: 3}
   - {fileID: 8126014614655955663, guid: 21adc35d415ebd2408de26f03cdc98a7, type: 3}
   - {fileID: 8126014614655955663, guid: 5b943931b49a0b74494ed67c0bb039bd, type: 3}
-  _lootItems: []
+  _lootItems:
+  - {fileID: 3908962086075147258, guid: 50ea7c83cdfb67c40954790faaf0fab8, type: 3}
+  - {fileID: 96380752230998978, guid: 8aa62c29e4095f2418dcbdb9e5161583, type: 3}
+  - {fileID: 96380752230998978, guid: 163189529c6d8d646a559c1094538bbe, type: 3}
+  - {fileID: -3030835653801942120, guid: 8e7cb2e3cd7c42844973025f923cfd76, type: 3}
+  - {fileID: -3030835653801942120, guid: 5e05fd9fec3fe8443b0b8bd0abd7d32e, type: 3}
+  - {fileID: 8126014614655955663, guid: 21adc35d415ebd2408de26f03cdc98a7, type: 3}
+  - {fileID: 8126014614655955663, guid: 5b943931b49a0b74494ed67c0bb039bd, type: 3}
   _cells:
   - {fileID: 7537615528531727690}
   - {fileID: 8173111739239914391}

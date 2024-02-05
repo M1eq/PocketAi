@@ -13,13 +13,13 @@ public class Battle : MonoBehaviour
 
     public void LaunchBattleLoop() => StartCoroutine(BattleLoopCoroutine());
 
-    public void Initialize(PlayerCharacter playerCharacter, EnemyCharacter enemyCharacter)
+    public void Initialize(PlayerCharacter playerCharacter, EnemyCharacter enemyCharacter, ItemCreator itemCreator)
     {
         _playerCharacter = playerCharacter;
         _enemyCharacter = enemyCharacter;
 
         _playerCharacter.Initialize();
-        _enemyCharacter.Initialize();
+        _enemyCharacter.Initialize(itemCreator);
 
         _playerCharacter.Health.RefillHealth();
         _enemyCharacter.Health.RefillHealth();

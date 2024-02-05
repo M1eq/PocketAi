@@ -1,8 +1,7 @@
-using UnityEngine;
-
 public class PlayerHealthPresenter : HealthPresenter
 {
-    [SerializeField] private GameObject _loseMenu;
+    private LoseMenu _loseMenu;
 
-    protected override void OnDied() => _loseMenu.SetActive(true);
+    public void Initialize(LoseMenu loseMenu) => _loseMenu = loseMenu;
+    protected override void OnDied() => _loseMenu.gameObject.SetActive(true);
 }
