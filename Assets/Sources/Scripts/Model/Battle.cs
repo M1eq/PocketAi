@@ -29,8 +29,6 @@ public class Battle : MonoBehaviour
 
         yield return new WaitForSeconds(1);
 
-        _playerCharacter.ClothesEquiper.TryResetEquipedClothes();
-
         if (_playerHeadWasPunched == false)
             ApplyDamageToPlayer(15 - GetPlayerProtection(_playerCharacter.ClothesEquiper.HeadClothes), true);
         else
