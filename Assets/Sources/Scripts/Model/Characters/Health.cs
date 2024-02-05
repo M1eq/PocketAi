@@ -1,4 +1,3 @@
-using UnityEngine;
 using UnityEngine.Events;
 
 public class Health
@@ -6,10 +5,10 @@ public class Health
     public event UnityAction Died;
     public event UnityAction<int, int> HealthCountChanged;
 
-    [SerializeField] private int _maxHealth = 100;
-
+    private readonly int _maxHealth;
     private int _currentHealth;
 
+    public Health(int maxHealth) => _maxHealth = maxHealth; 
     public void RefillHealth() => _currentHealth = _maxHealth;
 
     public void RestoreHP(MedKitParameters medKitParameters)

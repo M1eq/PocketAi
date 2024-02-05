@@ -10,6 +10,7 @@ public class InteractionPanelShower : MonoBehaviour
     [SerializeField] private GameObject _itemPanel;
     [SerializeField] private TMP_Text _itemTitleText;
     [SerializeField] private TMP_Text _interactionButtonTitle;
+    [SerializeField] private TMP_Text _protectionCountText;
     [SerializeField] private Image _itemIcon;
     [SerializeField] private Image _protectionIcon;
     [SerializeField] private Button _deleteButton;

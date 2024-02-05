@@ -28,8 +28,5 @@ public abstract class HealthPresenter : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        _character.HealthInitialized += OnHealthInitialized;
-    }
+    private void OnEnable() => _character.HealthInitialized += OnHealthInitialized;
 }

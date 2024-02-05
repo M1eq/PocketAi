@@ -21,10 +21,7 @@ public class MedKitItemPresenter : InventoryItemPresenter
         _activationPanelButton.onClick.RemoveAllListeners();
 
         if (_interactionPanel != null)
-        {
-            _interactionPanel.DeleteButton.onClick.RemoveAllListeners();
-            _interactionPanel.InteractionButton.onClick.RemoveAllListeners();
-        }
+            ResetInteractionPanelListeners();
     }
 
     private void OnMedKitInitializing(MedKitParameters medKitParameters, Image medKitImage)
@@ -37,15 +34,29 @@ public class MedKitItemPresenter : InventoryItemPresenter
 
     private void OnActivationPanelButtonPressed()
     {
-        _interactionPanel.DeleteButton.onClick.RemoveAllListeners();
-        _interactionPanel.InteractionButton.onClick.RemoveAllListeners();
+        ResetInteractionPanelListeners();
 
         _interactionPanel.ShowConsumablesPanel(
             _medKitParameters.ItemTitle, _medKitParameters.ActionTitle, _medKitParameters.ItemSprite);
 
+        InitializeDeleteButton();
+        InitializeInteractionButton();
+    }
+
+    private void ResetInteractionPanelListeners()
+    {
+        _interactionPanel.DeleteButton.onClick.RemoveAllListeners();
+        _interactionPanel.InteractionButton.onClick.RemoveAllListeners();
+    }
+
+    private void InitializeDeleteButton()
+    {
         _interactionPanel.DeleteButton.onClick.AddListener(() => _medKit.TryDecreaseCount());
         _interactionPanel.DeleteButton.onClick.AddListener(() => _interactionPanel.gameObject.SetActive(false));
+    }
 
+    private void InitializeInteractionButton()
+    {
         _interactionPanel.InteractionButton.onClick.AddListener(() => _medKit.TryDecreaseCount());
         _interactionPanel.InteractionButton.onClick.AddListener(() => _playerHealth.RestoreHP(_medKitParameters));
         _interactionPanel.InteractionButton.onClick.AddListener(() => _interactionPanel.gameObject.SetActive(false));

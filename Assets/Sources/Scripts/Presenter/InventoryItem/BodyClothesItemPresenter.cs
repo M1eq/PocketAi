@@ -20,10 +20,7 @@ public class BodyClothesItemPresenter : InventoryItemPresenter
         _bodyClothes.BodyClothesInitializing -= OnBodyClothesInitializing;
 
         if (_interactionPanel != null)
-        {
-            _interactionPanel.DeleteButton.onClick.RemoveAllListeners();
-            _interactionPanel.InteractionButton.onClick.RemoveAllListeners();
-        }
+            ResetInteractionPanelListeners();
     }
 
     private void OnBodyClothesInitializing(BodyClothesParameters bodyClothesParameters, Image bodyClothesImage)
@@ -36,15 +33,29 @@ public class BodyClothesItemPresenter : InventoryItemPresenter
 
     private void OnActivationPanelButtonPressed()
     {
-        _interactionPanel.DeleteButton.onClick.RemoveAllListeners();
-        _interactionPanel.InteractionButton.onClick.RemoveAllListeners();
+        ResetInteractionPanelListeners();
 
-        _interactionPanel.ShowConsumablesPanel(
+        _interactionPanel.ShowClothesPanel(
             _bodyClothesParameters.ItemTitle, _bodyClothesParameters.ActionTitle, _bodyClothesParameters.ItemSprite);
 
+        InitializeDeleteButton();
+        InitializeInteractionButton();
+    }
+
+    private void ResetInteractionPanelListeners()
+    {
+        _interactionPanel.DeleteButton.onClick.RemoveAllListeners();
+        _interactionPanel.InteractionButton.onClick.RemoveAllListeners();
+    }
+
+    private void InitializeDeleteButton()
+    {
         _interactionPanel.DeleteButton.onClick.AddListener(() => _bodyClothes.TryDecreaseCount());
         _interactionPanel.DeleteButton.onClick.AddListener(() => _interactionPanel.gameObject.SetActive(false));
+    }
 
+    private void InitializeInteractionButton()
+    {
         _interactionPanel.InteractionButton.onClick.AddListener(() => _clothesEquiper.EquipBodyClothes(_bodyClothes));
         _interactionPanel.InteractionButton.onClick.AddListener(() => _interactionPanel.gameObject.SetActive(false));
     }

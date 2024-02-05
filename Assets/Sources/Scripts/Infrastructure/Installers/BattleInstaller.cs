@@ -9,18 +9,31 @@ public class BattleInstaller : MonoInstaller
     [SerializeField] private Canvas _battleCanvasPrefab;
     [SerializeField] private Transform _gameAreaParent;
 
+    private Canvas _battleCanvas;
+    private PlayerCharacter _playerCharacter;
+    private EnemyCharacter _enemyCharacter;
+
     public override void InstallBindings()
     {
-        Canvas battleCanvas = Instantiate(_battleCanvasPrefab, _gameAreaParent);
+        InstantiatePrefabsForBinding();
+        BindBattle();
+    }
 
-        PlayerCharacter playerCharacter = Container.InstantiatePrefabForComponent<PlayerCharacter>(
-            _playerCharacterPrefab, battleCanvas.transform);
+    private void InstantiatePrefabsForBinding()
+    {
+         _battleCanvas = Instantiate(_battleCanvasPrefab, _gameAreaParent);
 
-        EnemyCharacter enemyCharacter = Container.InstantiatePrefabForComponent<EnemyCharacter>(
-            _enemyCharacterPrefab, battleCanvas.transform);
+          _playerCharacter = Container.InstantiatePrefabForComponent<PlayerCharacter>(
+              _playerCharacterPrefab, _battleCanvas.transform);
 
-        Container.Bind<PlayerCharacter>().FromInstance(playerCharacter).AsSingle();
-        Container.Bind<EnemyCharacter>().FromInstance(enemyCharacter).AsSingle();
-        Container.InstantiatePrefabForComponent<BattlePresenter>(_battlePresenterPrefab, battleCanvas.transform);
+         _enemyCharacter = Container.InstantiatePrefabForComponent<EnemyCharacter>(
+            _enemyCharacterPrefab, _battleCanvas.transform);
+    }
+
+    private void BindBattle()
+    {
+        Container.Bind<PlayerCharacter>().FromInstance(_playerCharacter).AsSingle();
+        Container.Bind<EnemyCharacter>().FromInstance(_enemyCharacter).AsSingle();
+        Container.InstantiatePrefabForComponent<BattlePresenter>(_battlePresenterPrefab, _battleCanvas.transform);
     }
 }

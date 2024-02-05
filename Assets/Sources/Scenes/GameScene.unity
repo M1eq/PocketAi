@@ -294,6 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b94d7c0501aece4291b262679b1f6d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerParameters: {fileID: 11400000, guid: e74e37642263663448736faea9052653, type: 2}
   _gameAreaParent: {fileID: 2022016530}
   _inventoryCanvasPrefab: {fileID: 6733542821462917151, guid: b8d54707c36808d4e8a93e5cf0707457, type: 3}
   _itemCreatorPrefab: {fileID: 2411176572989206386, guid: 8e824532453c2824a8ef0ad4d249c792, type: 3}

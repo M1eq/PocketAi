@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemyHealthPresenter: {fileID: 3832117734702851416}
+  _enemyParameters: {fileID: 11400000, guid: 8976a7adbbd3f1248b84f5a79db6a246, type: 2}
 --- !u!114 &3832117734702851416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,7 +351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.5177579, b: 0.45882356, a: 1}
+  m_Color: {r: 0.45882356, g: 0.59554935, b: 1, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -19,10 +19,7 @@ public class AmmoItemPresenter : InventoryItemPresenter
         _activationPanelButton.onClick.RemoveAllListeners();
 
         if (_interactionPanel != null)
-        {
-            _interactionPanel.DeleteButton.onClick.RemoveAllListeners();
-            _interactionPanel.InteractionButton.onClick.RemoveAllListeners();
-        }
+            ResetInteractionPanelListeners();
     }
 
     private void OnAmmoInitializing(AmmoParameters ammoParameters, Image ammoImage)
@@ -35,15 +32,29 @@ public class AmmoItemPresenter : InventoryItemPresenter
 
     private void OnActivationPanelButtonPressed()
     {
-        _interactionPanel.DeleteButton.onClick.RemoveAllListeners();
-        _interactionPanel.InteractionButton.onClick.RemoveAllListeners();
+        ResetInteractionPanelListeners();
 
         _interactionPanel.ShowConsumablesPanel(
             _ammoParameters.ItemTitle, _ammoParameters.ActionTitle, _ammoParameters.ItemSprite);
 
+        InitializeDeleteButton();
+        InitializeInteractionButton();
+    }
+
+    private void ResetInteractionPanelListeners()
+    {
+        _interactionPanel.DeleteButton.onClick.RemoveAllListeners();
+        _interactionPanel.InteractionButton.onClick.RemoveAllListeners();
+    }
+
+    private void InitializeDeleteButton()
+    {
         _interactionPanel.DeleteButton.onClick.AddListener(() => _ammo.TryDecreaseCount());
         _interactionPanel.DeleteButton.onClick.AddListener(() => _interactionPanel.gameObject.SetActive(false));
+    }
 
+    private void InitializeInteractionButton()
+    {
         _interactionPanel.InteractionButton.onClick.AddListener(() => _ammo.FillStack());
         _interactionPanel.InteractionButton.onClick.AddListener(() => _interactionPanel.gameObject.SetActive(false));
     }

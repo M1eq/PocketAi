@@ -9,6 +9,7 @@ public class ClothesEquiperPresenter : MonoBehaviour
     private void OnBodyClothesEquiped(int protection) => _clothesProtectionShower.ShowBodyProtection(protection);
     private void OnHeadClothesReseted() => _clothesProtectionShower.ShowResetedHeadProtection();
     private void OnBodyClothesReseted() => _clothesProtectionShower.ShowResetedBodyProtection();
+
     private void Update() => _clothesEquiper.TryResetEquipedClothes();
 
     private void OnEnable()

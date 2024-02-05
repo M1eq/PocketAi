@@ -12,5 +12,4 @@ public class MedKit : InventoryItem
     public override void InitializeItem() => MedKitInitializing?.Invoke(_medKitParameters, _medKitIcon);
     protected override bool GetIncreaseCountCheckResult() => ItemsCount + 1 <= _medKitParameters.CountInStack;
     protected override int GetStackCount() => _medKitParameters.CountInStack;
-
 }

@@ -33,9 +33,15 @@ public class Battle : MonoBehaviour
         yield return new WaitForSeconds(1);
 
         if (_playerHeadWasPunched == false)
-            ApplyDamageToPlayer(15 - GetPlayerProtection(_playerCharacter.ClothesEquiper.HeadClothes), true);
+        {
+            ApplyDamageToPlayer(
+                _enemyCharacter.Damage - GetPlayerProtection(_playerCharacter.ClothesEquiper.HeadClothes), true);
+        }
         else
-            ApplyDamageToPlayer(15 - GetPlayerProtection(_playerCharacter.ClothesEquiper.BodyClothes), false);
+        {
+            ApplyDamageToPlayer(
+                _enemyCharacter.Damage - GetPlayerProtection(_playerCharacter.ClothesEquiper.BodyClothes), false);
+        }
 
         BattleLoopEnded?.Invoke();
     }
