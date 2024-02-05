@@ -2,5 +2,5 @@ using UnityEngine;
 
 public abstract class ClothesParameters : ItemParameters
 {
-    [field: SerializeField] public float ProtectionScoreCount { get; private set; }
+    [field: SerializeField] public int ProtectionScoreCount { get; private set; }
 }

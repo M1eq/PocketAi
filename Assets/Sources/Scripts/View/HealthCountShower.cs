@@ -10,6 +10,6 @@ public class HealthCountShower : MonoBehaviour
     public void Show(int currentHealth, int maxHealth)
     {
         _healthCountText.text = currentHealth.ToString();
-        _healthBar.fillAmount = (currentHealth * 1) / (maxHealth * 1);
+        _healthBar.fillAmount = currentHealth * 1f / maxHealth * 1f ;
     }
 }

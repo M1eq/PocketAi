@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class BodyClothes : InventoryItem
 {
+    public int Protection => _bodyClothesParameters.ProtectionScoreCount;
     public event UnityAction<BodyClothesParameters, Image> BodyClothesInitializing;
 
     [SerializeField] private BodyClothesParameters _bodyClothesParameters;

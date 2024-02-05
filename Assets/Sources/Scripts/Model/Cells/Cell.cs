@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Cell : MonoBehaviour
+public abstract class Cell : MonoBehaviour
 {
-    public bool Occupied => _occupiedItem != null;
+    public bool Occupied => GetOcupationCheckResult();
     public InventoryItem OccupiedItem => _occupiedItem; 
 
     [SerializeField] private Image _cellImage;
@@ -21,4 +21,6 @@ public class Cell : MonoBehaviour
     }
 
     public void ResetCell() => _occupiedItem = null;
+    protected abstract bool GetOcupationCheckResult();
+    protected InventoryItem GetOccupiedItem() => _occupiedItem;
 }

@@ -7,12 +7,17 @@ public class InventoryInstaller : MonoInstaller
     [SerializeField] private Canvas _inventoryCanvasPrefab;
     [SerializeField] private ItemCreator _itemCreatorPrefab;
     [SerializeField] private InteractionPanelShower _interactionPanelPrefab;
+    [SerializeField] private ClothesEquiper _clothesEquiperPrefab;
 
     public override void InstallBindings()
     {
         Canvas inventoryCanvas = Instantiate(_inventoryCanvasPrefab, _gameAreaParent);
         InteractionPanelShower interactionPanel = Instantiate(_interactionPanelPrefab, inventoryCanvas.transform);
 
+        ClothesEquiper clothesEquiper = Container.InstantiatePrefabForComponent<ClothesEquiper>(
+            _clothesEquiperPrefab, inventoryCanvas.transform);
+
+        Container.Bind<ClothesEquiper>().FromInstance(clothesEquiper).AsSingle();
         Container.Bind<InteractionPanelShower>().FromInstance(interactionPanel).AsSingle();
         Container.Bind<Canvas>().FromInstance(inventoryCanvas).AsSingle();
 

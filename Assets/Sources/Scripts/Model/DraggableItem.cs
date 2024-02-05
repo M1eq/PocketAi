@@ -20,7 +20,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        SetSnapParent(transform.parent, _currentCell);
+        _snapParent = transform.parent;
         transform.SetParent(_inventoryCanvas.transform);
         transform.SetAsLastSibling();
 

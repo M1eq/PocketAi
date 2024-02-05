@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8890469661621626099}
   - component: {fileID: 3545352135206773266}
   - component: {fileID: 8026588716101920074}
+  - component: {fileID: 8640906381475216874}
+  - component: {fileID: 7033916512859922830}
   m_Layer: 5
   m_Name: HeadCell
   m_TagString: Untagged
@@ -75,6 +77,33 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8640906381475216874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2721570168590742229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87b8928919bba0f44a93fdeabdb251be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cell: {fileID: 7033916512859922830}
+  _clothesEquiper: {fileID: 7583653357662544854}
+--- !u!114 &7033916512859922830
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2721570168590742229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c53e0d30659d634fa9c44ae046fd518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cellImage: {fileID: 8026588716101920074}
 --- !u!1 &3494903652035030250
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,6 +115,8 @@ GameObject:
   - component: {fileID: 123336174208535377}
   - component: {fileID: 6932948351952765723}
   - component: {fileID: 336770408235453537}
+  - component: {fileID: 994455164971501907}
+  - component: {fileID: 939409744882200431}
   m_Layer: 5
   m_Name: BodyCell
   m_TagString: Untagged
@@ -150,6 +181,33 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &994455164971501907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3494903652035030250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e634511013b1a994586a1d2ea2b9c954, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cell: {fileID: 939409744882200431}
+  _clothesEquiper: {fileID: 7583653357662544854}
+--- !u!114 &939409744882200431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3494903652035030250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c53e0d30659d634fa9c44ae046fd518, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cellImage: {fileID: 336770408235453537}
 --- !u!1 &5582651689987421781
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,8 +217,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7151818190731712915}
+  - component: {fileID: 7583653357662544854}
   m_Layer: 5
-  m_Name: CharacterCells
+  m_Name: ClothesCells
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -184,6 +243,20 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.75715476}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0017089844, y: 1.7901001}
+  m_AnchoredPosition: {x: 0.0017089844, y: 1.7901611}
   m_SizeDelta: {x: -0.6500244, y: -2.8200989}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7583653357662544854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5582651689987421781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d94a81a523b84c4282fbe6681ff45cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _headClothesCell: {fileID: 7033916512859922830}
+  _bodyClothesCell: {fileID: 939409744882200431}

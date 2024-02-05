@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-[RequireComponent(typeof(Cell))]
 public abstract class CellPresenter : MonoBehaviour, IDropHandler
 {
     [SerializeField] private Cell _cell;

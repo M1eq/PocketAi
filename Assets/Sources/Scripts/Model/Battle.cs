@@ -9,6 +9,7 @@ public class Battle : MonoBehaviour
 
     private PlayerCharacter _playerCharacter;
     private EnemyCharacter _enemyCharacter;
+    private bool _playerHeadWasPunched;
 
     public void LaunchBattleLoop() => StartCoroutine(BattleLoopCoroutine());
 
@@ -24,11 +25,39 @@ public class Battle : MonoBehaviour
     private IEnumerator BattleLoopCoroutine()
     {
         BattleLoopLaunched?.Invoke();
-
         _enemyCharacter.Health.TakeDamage(_playerCharacter.WeaponEquiper.EquippedWeapon.GetShootDamage());
+
         yield return new WaitForSeconds(1);
 
-        _playerCharacter.Health.TakeDamage(10);
+        _playerCharacter.ClothesEquiper.TryResetEquipedClothes();
+
+        if (_playerHeadWasPunched == false)
+            ApplyDamageToPlayer(15 - GetPlayerProtection(_playerCharacter.ClothesEquiper.HeadClothes), true);
+        else
+            ApplyDamageToPlayer(15 - GetPlayerProtection(_playerCharacter.ClothesEquiper.BodyClothes), false);
+
         BattleLoopEnded?.Invoke();
+    }
+
+    private int GetPlayerProtection(HeadClothes headClothes)
+    {
+        if (headClothes != null)
+            return headClothes.Protection;
+        else
+            return 0;
+    }
+
+    private int GetPlayerProtection(BodyClothes bodyClothes)
+    {
+        if (bodyClothes != null)
+            return bodyClothes.Protection;
+        else
+            return 0;
+    }
+
+    private void ApplyDamageToPlayer(int damage, bool headWasPunched)
+    {
+        _playerCharacter.Health.TakeDamage(damage);
+        _playerHeadWasPunched = headWasPunched;
     }
 }
