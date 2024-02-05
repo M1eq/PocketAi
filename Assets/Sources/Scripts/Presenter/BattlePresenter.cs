@@ -12,6 +12,7 @@ public class BattlePresenter : MonoBehaviour
     [SerializeField] private Outline _automaticGunButtonOutline;
 
     private PlayerCharacter _playerCharacter;
+    private JsonSaveSystem _jsonSaveSystem;
 
     private void OnAmmoInserted() => _shootButton.interactable = true;
     private void OnAmmoInsertBreaked() => _shootButton.interactable = false;
@@ -27,10 +28,15 @@ public class BattlePresenter : MonoBehaviour
     private void Construct(PlayerCharacter player, EnemyCharacter enemy, ItemCreator itemCreator, JsonSaveSystem saveSystem)
     {
         _battle.Initialize(player, enemy, itemCreator, saveSystem);
+        _jsonSaveSystem = saveSystem;
 
         _playerCharacter = player;
         _playerCharacter.WeaponEquiper.WeaponEquipped += OnWeaponEquipped;
-        OnEquipPistolButtonPressed();
+
+        if (_jsonSaveSystem.SaveData.EquipedWeaponAmmoType == AmmoType.pistolAmmo)
+            OnEquipPistolButtonPressed();
+        else if(_jsonSaveSystem.SaveData.EquipedWeaponAmmoType == AmmoType.automaticWeaponAmmo)
+            OnEquipAutomaticGunButtonPressed();
     }
 
     private void OnWeaponEquipped()
@@ -44,13 +50,16 @@ public class BattlePresenter : MonoBehaviour
     {
         TryRemoveWeaponListeners();
         _playerCharacter.WeaponEquiper.EquipPistol();
+        _playerCharacter.SavePlayerData();
         ActivateOutline(true, false);
+
     }
 
     private void OnEquipAutomaticGunButtonPressed()
     {
         TryRemoveWeaponListeners();
         _playerCharacter.WeaponEquiper.EquipAutomaticWeapon();
+        _playerCharacter.SavePlayerData();
         ActivateOutline(false, true);
     }
 

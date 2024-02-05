@@ -23,7 +23,7 @@ public class PlayerCharacter : Character
     public void SavePlayerData()
     {
         _jsonSaveSystem.SaveData.PlayerHealth = _playerHealth.CurrentHealth;
-        _jsonSaveSystem.SaveData.EquipedWeapon = _weaponEquiper.EquippedWeapon;
+        _jsonSaveSystem.SaveData.EquipedWeaponAmmoType = _weaponEquiper.EquippedWeapon.AmmoType;
         _jsonSaveSystem.SaveData.EquipedBodyClothes = ClothesEquiper.BodyClothes;
         _jsonSaveSystem.SaveData.EquipedHeadClothes = ClothesEquiper.HeadClothes;
 

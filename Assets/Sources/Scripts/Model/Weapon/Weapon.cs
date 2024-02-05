@@ -2,6 +2,8 @@ using UnityEngine.Events;
 
 public class Weapon
 {
+    public AmmoType AmmoType => _weaponParameters.AmmoType;
+
     public event UnityAction AmmoInserted;
     public event UnityAction AmmoInsertBreaked;
 
