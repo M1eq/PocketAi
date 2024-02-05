@@ -10,14 +10,14 @@ public abstract class Cell : MonoBehaviour
 
     private InventoryItem _occupiedItem; 
 
-    public void Occupie(InventoryItem InventoryItem)
+    public void Occupie(InventoryItem inventoryItem)
     {
-        InventoryItem.DraggableItem.SetSnapParent(_cellImage.transform, this);
-        InventoryItem.transform.parent = _cellImage.transform;
-        InventoryItem.transform.localPosition = Vector3.zero;
-        InventoryItem.transform.localScale = Vector3.one;
+        inventoryItem.DraggableItem.SetSnapParent(_cellImage.transform, this);
+        inventoryItem.transform.parent = _cellImage.transform;
+        inventoryItem.transform.localPosition = Vector3.zero;
+        inventoryItem.transform.localScale = Vector3.one;
 
-        _occupiedItem = InventoryItem;
+        _occupiedItem = inventoryItem;
     }
 
     public void ResetCell() => _occupiedItem = null;

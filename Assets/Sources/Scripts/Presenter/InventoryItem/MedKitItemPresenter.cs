@@ -10,7 +10,7 @@ public class MedKitItemPresenter : InventoryItemPresenter
     private MedKitParameters _medKitParameters;
     private Health _playerHealth;
 
-    public void InitializeHealth(Health playerHealth) => _playerHealth = playerHealth;
+    public void SetPlayerHealth(Health playerHealth) => _playerHealth = playerHealth;
     protected override InventoryItem GetInventoryItem() => _medKit;
 
     protected override void RemoveAllActionListeners()

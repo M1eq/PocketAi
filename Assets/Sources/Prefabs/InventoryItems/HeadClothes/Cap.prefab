@@ -301,6 +301,7 @@ MonoBehaviour:
   _itemCountShower: {fileID: 1701755789314091959}
   _draggableItem: {fileID: 4308594997984691224}
   _headClothes: {fileID: -5475211052578058673}
+  _activationPanelButton: {fileID: -2966469729311071244}
 --- !u!114 &1701755789314091959
 MonoBehaviour:
   m_ObjectHideFlags: 0

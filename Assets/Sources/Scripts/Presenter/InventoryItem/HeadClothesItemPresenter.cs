@@ -1,23 +1,23 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BodyClothesItemPresenter : InventoryItemPresenter
+public class HeadClothesItemPresenter : InventoryItemPresenter
 {
-    [SerializeField] private BodyClothes _bodyClothes;
+    [SerializeField] private HeadClothes _headClothes;
     [SerializeField] private Button _activationPanelButton;
 
-    private BodyClothesParameters _bodyClothesParameters;
+    private HeadClothesParameters _headClothesParameters;
     private InteractionPanelShower _interactionPanel;
     private ClothesEquiper _clothesEquiper;
 
     public void SetClothesEquiper(ClothesEquiper clothesEquiper) => _clothesEquiper = clothesEquiper;
-    protected override InventoryItem GetInventoryItem() => _bodyClothes;
+    protected override InventoryItem GetInventoryItem() => _headClothes;
 
     protected override void RemoveAllActionListeners()
     {
-        _bodyClothes.ItemsCountChanged -= OnItemCountChanged;
-        _bodyClothes.ItemDestroyed -= OnItemDestroyed;
-        _bodyClothes.BodyClothesInitializing -= OnBodyClothesInitializing;
+        _headClothes.ItemsCountChanged -= OnItemCountChanged;
+        _headClothes.ItemDestroyed -= OnItemDestroyed;
+        _headClothes.HeadClothesInitializing -= OnHeadClothesInitializing;
 
         if (_interactionPanel != null)
         {
@@ -26,10 +26,10 @@ public class BodyClothesItemPresenter : InventoryItemPresenter
         }
     }
 
-    private void OnBodyClothesInitializing(BodyClothesParameters bodyClothesParameters, Image bodyClothesImage)
+    private void OnHeadClothesInitializing(HeadClothesParameters headClothesParameters, Image headClothesImage)
     {
-        bodyClothesImage.sprite = bodyClothesParameters.ItemSprite;
-        _bodyClothesParameters = bodyClothesParameters;
+        headClothesImage.sprite = headClothesParameters.ItemSprite;
+        _headClothesParameters = headClothesParameters;
 
         _interactionPanel = GetInteractionPanel();
     }
@@ -40,20 +40,20 @@ public class BodyClothesItemPresenter : InventoryItemPresenter
         _interactionPanel.InteractionButton.onClick.RemoveAllListeners();
 
         _interactionPanel.ShowConsumablesPanel(
-            _bodyClothesParameters.ItemTitle, _bodyClothesParameters.ActionTitle, _bodyClothesParameters.ItemSprite);
+            _headClothesParameters.ItemTitle, _headClothesParameters.ActionTitle, _headClothesParameters.ItemSprite);
 
-        _interactionPanel.DeleteButton.onClick.AddListener(() => _bodyClothes.TryDecreaseCount());
+        _interactionPanel.DeleteButton.onClick.AddListener(() => _headClothes.TryDecreaseCount());
         _interactionPanel.DeleteButton.onClick.AddListener(() => _interactionPanel.gameObject.SetActive(false));
 
-        _interactionPanel.InteractionButton.onClick.AddListener(() => _clothesEquiper.EquipBodyClothes(_bodyClothes));
+        _interactionPanel.InteractionButton.onClick.AddListener(() => _clothesEquiper.EquipHeadClothes(_headClothes));
         _interactionPanel.InteractionButton.onClick.AddListener(() => _interactionPanel.gameObject.SetActive(false));
     }
 
     private void OnEnable()
     {
-        _bodyClothes.ItemsCountChanged += OnItemCountChanged;
-        _bodyClothes.ItemDestroyed += OnItemDestroyed;
-        _bodyClothes.BodyClothesInitializing += OnBodyClothesInitializing;
+        _headClothes.ItemsCountChanged += OnItemCountChanged;
+        _headClothes.ItemDestroyed += OnItemDestroyed;
+        _headClothes.HeadClothesInitializing += OnHeadClothesInitializing;
 
         _activationPanelButton.onClick.AddListener(() => OnActivationPanelButtonPressed());
     }

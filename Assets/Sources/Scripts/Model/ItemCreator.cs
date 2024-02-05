@@ -17,14 +17,16 @@ public class ItemCreator : MonoBehaviour
     private InteractionPanelShower _interactionPanelShower;
     private Canvas _inventoryCanvas;
     private Health _playerHealth;
+    private ClothesEquiper _clothesEquiper;
 
     private bool CanCreateStartItems => _emptyCells.Count >= _startItems.Length;
 
     [Inject]
-    private void Construct(InteractionPanelShower interactionPanel, Canvas inventoryCanvas, Health playerHealth)
+    private void Construct(InteractionPanelShower interactionPanel, Canvas inventoryCanvas, Health playerHealth, ClothesEquiper clothesEquiper)
     {
         _interactionPanelShower = interactionPanel;
         _inventoryCanvas = inventoryCanvas;
+        _clothesEquiper = clothesEquiper;
         _playerHealth = playerHealth;
     }
 
@@ -84,12 +86,31 @@ public class ItemCreator : MonoBehaviour
         InventoryItemPresenter itemPresenter = Instantiate(itemPrefab);
         itemPresenter.Initialize(_interactionPanelShower, _inventoryCanvas);
 
-        if (itemPresenter.TryGetComponent<MedKitItemPresenter>(out MedKitItemPresenter medKitItemPresenter))
-            medKitItemPresenter.InitializeHealth(_playerHealth);
+        TryInitializeMedKit(itemPresenter);
+        TryInitializeBodyClothes(itemPresenter);
+        TryInitializeHeadClothes(itemPresenter);
 
         itemPresenter.InventoryItem.FillStack();
         itemPresenter.InventoryItem.InitializeItem();
 
         cell.Occupie(itemPresenter.InventoryItem);
+    }
+
+    private void TryInitializeMedKit(InventoryItemPresenter itemPresenter)
+    {
+        if (itemPresenter.TryGetComponent<MedKitItemPresenter>(out MedKitItemPresenter medKitItemPresenter))
+            medKitItemPresenter.SetPlayerHealth(_playerHealth);
+    }
+
+    private void TryInitializeBodyClothes(InventoryItemPresenter itemPresenter)
+    {
+        if (itemPresenter.TryGetComponent<BodyClothesItemPresenter>(out BodyClothesItemPresenter bodyClothesItemPresenter))
+            bodyClothesItemPresenter.SetClothesEquiper(_clothesEquiper);
+    }    
+    
+    private void TryInitializeHeadClothes(InventoryItemPresenter itemPresenter)
+    {
+        if (itemPresenter.TryGetComponent<HeadClothesItemPresenter>(out HeadClothesItemPresenter headClothesItemPresenter))
+            headClothesItemPresenter.SetClothesEquiper(_clothesEquiper);
     }
 }
