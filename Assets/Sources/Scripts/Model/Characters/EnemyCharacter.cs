@@ -18,8 +18,6 @@ public class EnemyCharacter : Character
         _enemyHealth = new Health();
         _enemyHealth.Initialize(_enemyParameters.MaxHealth, _jsonSaveSystem.SaveData.EnemyHealth);
 
-        Debug.Log(_jsonSaveSystem.SaveData.EnemyHealth);
-
         InitializeHealth(_enemyHealth);
         _enemyHealthPresenter.Initialize(itemCreator);
     }

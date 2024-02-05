@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 public abstract class InventoryItem : MonoBehaviour
 {
+    public string ItemID => GetItemId();
     public int ItemsCount => _itemsCount;
     public int StackCount => GetStackCount();
     public DraggableItem DraggableItem => _draggableItem;
@@ -13,6 +14,12 @@ public abstract class InventoryItem : MonoBehaviour
     [SerializeField] private DraggableItem _draggableItem;
 
     private int _itemsCount;
+
+    public void SetItemCount(int itemsCount)
+    {
+        _itemsCount = itemsCount;
+        ItemsCountChanged?.Invoke(_itemsCount);
+    }
 
     public void FillStack()
     {
@@ -51,4 +58,5 @@ public abstract class InventoryItem : MonoBehaviour
     public abstract void InitializeItem();
     protected abstract bool GetIncreaseCountCheckResult();
     protected abstract int GetStackCount();
+    protected abstract string GetItemId();
 }

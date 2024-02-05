@@ -13,4 +13,5 @@ public class BodyClothes : InventoryItem
     public override void InitializeItem() => BodyClothesInitializing?.Invoke(_bodyClothesParameters, _bodyClothesIcon);
     protected override bool GetIncreaseCountCheckResult() => ItemsCount + 1 <= _bodyClothesParameters.CountInStack;
     protected override int GetStackCount() => _bodyClothesParameters.CountInStack;
+    protected override string GetItemId() => _bodyClothesParameters.Id;
 }

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f4b9b7dfe5270e4da4701bfb18202f0, type: 3}
   m_Name: MedKit
   m_EditorClassIdentifier: 
+  Id: c26b77e1-d0ee-442b-88c8-ee8ad775dc3c
   <ItemTitle>k__BackingField: "\u0410\u0442\u0435\u0447\u043A\u0430"
   <ItemSprite>k__BackingField: {fileID: 21300000, guid: 72e0a3a5dfc3adf4987eab2e9ea8b130, type: 3}
-  <ItemType>k__BackingField: 0
   <CountInStack>k__BackingField: 6
   <OneItemWeight>k__BackingField: 1
   <ActionTitle>k__BackingField: "\u041B\u0435\u0447\u0435\u043D\u0438\u0435"

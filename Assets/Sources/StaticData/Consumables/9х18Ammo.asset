@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61c73c8397483a949ab53bc5092562e8, type: 3}
   m_Name: "9\u044518Ammo"
   m_EditorClassIdentifier: 
+  Id: 674597dc-1724-4779-9f7c-f4e4fda19d76
   <ItemTitle>k__BackingField: "\u041F\u0430\u0442\u0440\u043E\u043D\u044B 9\u044518\u043C\u043C"
   <ItemSprite>k__BackingField: {fileID: 21300000, guid: 7f21690e1577c8b40b902c48cbcdf445, type: 3}
-  <ItemType>k__BackingField: 0
   <CountInStack>k__BackingField: 50
   <OneItemWeight>k__BackingField: 0.01
   <ActionTitle>k__BackingField: "\u041A\u0443\u043F\u0438\u0442\u044C"
-  <OneAmmoPrice>k__BackingField: 0
+  <AmmoType>k__BackingField: 0

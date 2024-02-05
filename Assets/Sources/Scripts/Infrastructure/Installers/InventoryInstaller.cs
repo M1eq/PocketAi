@@ -17,6 +17,9 @@ public class InventoryInstaller : MonoInstaller
     private LoseMenu _loseMenu;
     private JsonSaveSystem _jsonSaveSystem;
 
+    private bool CanCreateStartItems =>
+        _jsonSaveSystem.SaveData.ItemsId.Count == 0 || _jsonSaveSystem.SaveData.ItemsId == null;
+
     public override void InstallBindings()
     {
         BindSaveSystem();
@@ -71,7 +74,10 @@ public class InventoryInstaller : MonoInstaller
         Container.Bind<ItemCreator>().FromInstance(itemCreator).AsSingle();
         Container.Bind<Cell[]>().FromInstance(itemCreator.InventoryCells).AsSingle();
 
-        itemCreator.TryCreateStartItems();
+        if (CanCreateStartItems)
+            itemCreator.TryCreateStartItems(_jsonSaveSystem);
+        else
+            itemCreator.TryRestoreSavedItems(_jsonSaveSystem);
     }
 
     private void FixEvironmentHierarchy()

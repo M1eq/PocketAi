@@ -6,8 +6,7 @@ public class ItemCreator : MonoBehaviour
 {
     public Cell[] InventoryCells => _cells;
 
-    [SerializeField] private InventoryItemPresenter[] _startItems;
-    [SerializeField] private InventoryItemPresenter[] _lootItems;
+    [SerializeField] private InventoryItemPresenter[] _items;
     [SerializeField] private Cell[] _cells;
 
     private const int NewLootValue = 1;
@@ -18,8 +17,9 @@ public class ItemCreator : MonoBehaviour
     private Canvas _inventoryCanvas;
     private Health _playerHealth;
     private ClothesEquiper _clothesEquiper;
+    private JsonSaveSystem _jsonSaveSystem;
 
-    private bool CanCreateStartItems => _emptyCells.Count >= _startItems.Length;
+    private bool CanCreateStartItems => _emptyCells.Count >= _items.Length;
 
     [Inject]
     private void Construct(InteractionPanelShower interactionPanel, Canvas inventoryCanvas, Health playerHealth, ClothesEquiper clothesEquiper)
@@ -30,15 +30,34 @@ public class ItemCreator : MonoBehaviour
         _playerHealth = playerHealth;
     }
 
-    public void TryCreateStartItems()
+    public void TryCreateStartItems(JsonSaveSystem jsonSaveSystem)
     {
+        _jsonSaveSystem = jsonSaveSystem;
+
         InitializeCells();
 
         if (CanCreateStartItems)
         {
-            for (int i = 0; i < _startItems.Length; i++)
+            for (int i = 0; i < _items.Length; i++)
             { 
-                CreateItem(_startItems[i], _emptyCells[i]);
+                CreateItem(_items[i], _emptyCells[i], _items[i].InventoryItem.StackCount);
+                SaveCreatedItem(_items[i].InventoryItem.ItemID, _items[i].InventoryItem.StackCount);
+            }
+        }
+    }
+
+    public void TryRestoreSavedItems(JsonSaveSystem jsonSaveSystem)
+    {
+        InitializeCells();
+
+        for (int i = 0; i < jsonSaveSystem.SaveData.ItemsId.Count; i++)
+        {
+            for (int j = 0; j < _items.Length; j++)
+            {
+                if (jsonSaveSystem.SaveData.ItemsId[i] == _items[j].InventoryItem.ItemID)
+                {
+                    CreateItem(_items[j], _emptyCells[i], jsonSaveSystem.SaveData.InventoryItemsCount[i]);
+                }
             }
         }
     }
@@ -55,9 +74,11 @@ public class ItemCreator : MonoBehaviour
         }
         else if (_emptyCells.Count > 0 && lootValue == NewLootValue)
         {
-            int itemNumber = Random.Range(0, _lootItems.Length);
+            int itemNumber = Random.Range(0, _items.Length);
             int cellNumber = Random.Range(0, _emptyCells.Count);
-            CreateItem(_lootItems[itemNumber], _emptyCells[cellNumber]);
+
+            CreateItem(_items[itemNumber], _emptyCells[cellNumber], _items[itemNumber].InventoryItem.StackCount);
+            SaveCreatedItem(_items[itemNumber].InventoryItem.ItemID, _items[itemNumber].InventoryItem.StackCount);
         }
     }
 
@@ -81,7 +102,7 @@ public class ItemCreator : MonoBehaviour
         }
     }
 
-    private void CreateItem(InventoryItemPresenter itemPrefab, Cell cell)
+    private void CreateItem(InventoryItemPresenter itemPrefab, Cell cell, int itemCount)
     {
         InventoryItemPresenter itemPresenter = Instantiate(itemPrefab);
         itemPresenter.Initialize(_interactionPanelShower, _inventoryCanvas);
@@ -90,7 +111,7 @@ public class ItemCreator : MonoBehaviour
         TryInitializeBodyClothes(itemPresenter);
         TryInitializeHeadClothes(itemPresenter);
 
-        itemPresenter.InventoryItem.FillStack();
+        itemPresenter.InventoryItem.SetItemCount(itemCount);
         itemPresenter.InventoryItem.InitializeItem();
 
         cell.Occupie(itemPresenter.InventoryItem);
@@ -112,5 +133,11 @@ public class ItemCreator : MonoBehaviour
     {
         if (itemPresenter.TryGetComponent<HeadClothesItemPresenter>(out HeadClothesItemPresenter headClothesItemPresenter))
             headClothesItemPresenter.SetClothesEquiper(_clothesEquiper);
+    }
+
+    private void SaveCreatedItem(string itemId, int itemsCount)
+    {
+        _jsonSaveSystem.SaveData.ItemsId.Add(itemId);
+        _jsonSaveSystem.SaveData.InventoryItemsCount.Add(itemsCount);
     }
 }

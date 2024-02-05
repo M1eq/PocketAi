@@ -13,6 +13,7 @@ public class PlayerCharacter : Character
     private Health _playerHealth;
     private LoseMenu _loseMenu;
     private JsonSaveSystem _jsonSaveSystem;
+    private Cell[] _inventoryCells;
 
     public void Initialize()
     {
@@ -22,18 +23,43 @@ public class PlayerCharacter : Character
 
     public void SavePlayerData()
     {
+        TrySavePlayerInventory();
+
         _jsonSaveSystem.SaveData.PlayerHealth = _playerHealth.CurrentHealth;
         _jsonSaveSystem.SaveData.EquipedWeaponAmmoType = _weaponEquiper.EquippedWeapon.AmmoType;
-        _jsonSaveSystem.SaveData.EquipedBodyClothes = ClothesEquiper.BodyClothes;
-        _jsonSaveSystem.SaveData.EquipedHeadClothes = ClothesEquiper.HeadClothes;
+
+        //if (_jsonSaveSystem.SaveData.EquipedBodyClothesId != null)
+        //    _jsonSaveSystem.SaveData.EquipedBodyClothesId = ClothesEquiper.BodyClothes.ItemID;
+
+        //if (_jsonSaveSystem.SaveData.EquipedHeadClothesId != null)
+        //    _jsonSaveSystem.SaveData.EquipedHeadClothesId = ClothesEquiper.HeadClothes.ItemID;
 
         _jsonSaveSystem.Save();
+    }
+
+    private void TrySavePlayerInventory()
+    {
+        if (_inventoryCells != null)
+        {
+            _jsonSaveSystem.SaveData.ItemsId.Clear();
+            _jsonSaveSystem.SaveData.InventoryItemsCount.Clear();
+
+            for (int i = 0; i < _inventoryCells.Length; i++)
+            {
+                if (_inventoryCells[i].OccupiedItem != null)
+                {
+                    _jsonSaveSystem.SaveData.ItemsId.Add(_inventoryCells[i].OccupiedItem.ItemID);
+                    _jsonSaveSystem.SaveData.InventoryItemsCount.Add(_inventoryCells[i].OccupiedItem.ItemsCount);
+                }
+            }
+        }
     }
 
     [Inject]
     private void Construct(Cell[] cells, ClothesEquiper clothesEquiper, Health playerHealth, LoseMenu loseMenu, JsonSaveSystem jsonSaveSystem)
     {
-        _weaponEquiper.Initialize(cells);
+        _inventoryCells = cells;
+        _weaponEquiper.Initialize(_inventoryCells);
         _clothesEquiper = clothesEquiper;
         _playerHealth = playerHealth;
         _loseMenu = loseMenu;

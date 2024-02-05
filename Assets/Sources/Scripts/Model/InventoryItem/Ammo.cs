@@ -13,4 +13,5 @@ public class Ammo : InventoryItem
     public override void InitializeItem() => AmmoInitializing?.Invoke(_ammoParameters, _ammoIcon);
     protected override bool GetIncreaseCountCheckResult() => ItemsCount + 1 <= _ammoParameters.CountInStack;
     protected override int GetStackCount() => _ammoParameters.CountInStack;
+    protected override string GetItemId() => _ammoParameters.Id;
 }

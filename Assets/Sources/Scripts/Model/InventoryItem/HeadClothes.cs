@@ -13,4 +13,5 @@ public class HeadClothes : InventoryItem
     public override void InitializeItem() => HeadClothesInitializing?.Invoke(_headClothesParameters, _headClothesIcon);
     protected override bool GetIncreaseCountCheckResult() => ItemsCount + 1 <= _headClothesParameters.CountInStack;
     protected override int GetStackCount() => _headClothesParameters.CountInStack;
+    protected override string GetItemId() => _headClothesParameters.Id;
 }
