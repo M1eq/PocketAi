@@ -7,7 +7,9 @@ public abstract class HealthPresenter : MonoBehaviour
 
     protected abstract void OnDied();
     protected void RefillHealth() => _character.Health.RefillHealth();
-    private void OnHealthCountChanged(int currentHealth) => _healthCountShower.Show(currentHealth);
+
+    private void OnHealthCountChanged(int currentHealth, int maxHealth) => 
+        _healthCountShower.Show(currentHealth, maxHealth);
 
     private void OnEnable()
     {

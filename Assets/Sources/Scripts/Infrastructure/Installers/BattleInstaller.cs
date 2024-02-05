@@ -16,8 +16,11 @@ public class BattleInstaller : MonoInstaller
         PlayerCharacter playerCharacter = Container.InstantiatePrefabForComponent<PlayerCharacter>(
             _playerCharacterPrefab, battleCanvas.transform);
 
+        EnemyCharacter enemyCharacter = Container.InstantiatePrefabForComponent<EnemyCharacter>(
+            _enemyCharacterPrefab, battleCanvas.transform);
+
         Container.Bind<PlayerCharacter>().FromInstance(playerCharacter).AsSingle();
-        Container.InstantiatePrefabForComponent<EnemyCharacter>(_enemyCharacterPrefab, battleCanvas.transform);
+        Container.Bind<EnemyCharacter>().FromInstance(enemyCharacter).AsSingle();
         Container.InstantiatePrefabForComponent<BattlePresenter>(_battlePresenterPrefab, battleCanvas.transform);
     }
 }

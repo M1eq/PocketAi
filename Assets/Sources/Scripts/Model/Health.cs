@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class Health
 {
     public event UnityAction Died;
-    public event UnityAction<int> HealthCountChanged;
+    public event UnityAction<int, int> HealthCountChanged;
 
     [SerializeField] private int _maxHealth = 100;
 
@@ -19,7 +19,7 @@ public class Health
         if (_currentHealth > _maxHealth)
             _currentHealth = _maxHealth;
 
-        HealthCountChanged?.Invoke(_currentHealth);
+        HealthCountChanged?.Invoke(_currentHealth, _maxHealth);
     }
 
     public void TakeDamage(int damage)
@@ -27,7 +27,7 @@ public class Health
         _currentHealth -= damage;
         TryDie();
 
-        HealthCountChanged?.Invoke(_currentHealth);
+        HealthCountChanged?.Invoke(_currentHealth, _maxHealth);
     }
 
     private void TryDie()

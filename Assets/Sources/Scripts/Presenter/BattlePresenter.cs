@@ -4,6 +4,7 @@ using Zenject;
 
 public class BattlePresenter : MonoBehaviour
 {
+    [SerializeField] private Battle _battle;
     [SerializeField] private Button _shootButton;
     [SerializeField] private Button _equipPistolButton;
     [SerializeField] private Button _equipAutomaticGunButton;
@@ -14,10 +15,19 @@ public class BattlePresenter : MonoBehaviour
 
     private void OnAmmoInserted() => _shootButton.interactable = true;
     private void OnAmmoInsertBreaked() => _shootButton.interactable = false;
+    private void OnBattleLoopLaunched() => _shootButton.gameObject.SetActive(false);
+
+    private void OnBattleLoopEnded()
+    {
+        _playerCharacter.WeaponEquiper.EquippedWeapon.TryInsertAmmo();
+        _shootButton.gameObject.SetActive(true);
+    }
 
     [Inject]
-    private void Construct(PlayerCharacter playerCharacter)
+    private void Construct(PlayerCharacter playerCharacter, EnemyCharacter enemyCharacter)
     {
+        _battle.Initialize(playerCharacter, enemyCharacter);
+
         _playerCharacter = playerCharacter;
         _playerCharacter.WeaponEquiper.WeaponEquipped += OnWeaponEquipped;
         OnEquipPistolButtonPressed();
@@ -28,7 +38,6 @@ public class BattlePresenter : MonoBehaviour
         _playerCharacter.WeaponEquiper.EquippedWeapon.AmmoInserted += OnAmmoInserted;
         _playerCharacter.WeaponEquiper.EquippedWeapon.AmmoInsertBreaked += OnAmmoInsertBreaked;
         _playerCharacter.WeaponEquiper.EquippedWeapon.TryInsertAmmo();
-        Debug.Log("גûחמג");
     }
 
     private void OnEquipPistolButtonPressed()
@@ -64,12 +73,21 @@ public class BattlePresenter : MonoBehaviour
     {
         _equipPistolButton.onClick.AddListener(() => OnEquipPistolButtonPressed());
         _equipAutomaticGunButton.onClick.AddListener(() => OnEquipAutomaticGunButtonPressed());
+        _shootButton.onClick.AddListener(() => _battle.LaunchBattleLoop());
+
+        _battle.BattleLoopLaunched += OnBattleLoopLaunched;
+        _battle.BattleLoopEnded += OnBattleLoopEnded;
+
     }
 
     private void OnDisable()
     {
         _equipPistolButton.onClick.RemoveAllListeners();
         _equipAutomaticGunButton.onClick.RemoveAllListeners();
+        _shootButton.onClick.RemoveAllListeners();
+
+        _battle.BattleLoopLaunched -= OnBattleLoopLaunched;
+        _battle.BattleLoopEnded -= OnBattleLoopEnded;
         _playerCharacter.WeaponEquiper.WeaponEquipped -= OnWeaponEquipped;
         TryRemoveWeaponListeners();
     }

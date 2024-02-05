@@ -21,6 +21,7 @@ public class Weapon
         for (int i = 0; i < _weaponParameters.AmmoDecreaseStep; i++)
             _equippedAmmo.TryDecreaseCount();
 
+        TryInsertAmmo();
         return _weaponParameters.Damage;
     }
 

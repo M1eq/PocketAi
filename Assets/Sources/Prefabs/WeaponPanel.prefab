@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4451103814303021971}
   - component: {fileID: 3111912947250331615}
+  - component: {fileID: 1988263166190395871}
   m_Layer: 5
   m_Name: WeaponPanel
   m_TagString: Untagged
@@ -51,11 +52,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1141f1a243b6c034bb1f7fb8f63fc6c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _battle: {fileID: 1988263166190395871}
   _shootButton: {fileID: 4150162350432158545}
   _equipPistolButton: {fileID: 2102771067289194995}
   _equipAutomaticGunButton: {fileID: 5406973617262138484}
   _pistolButtonOutline: {fileID: 3646100877925879841}
   _automaticGunButtonOutline: {fileID: 7645096741824788960}
+--- !u!114 &1988263166190395871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759275444602449900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fc861531ea0c4844b9950546dc9a57a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3148796561228509916
 GameObject:
   m_ObjectHideFlags: 0
