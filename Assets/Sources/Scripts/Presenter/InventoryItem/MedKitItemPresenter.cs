@@ -36,8 +36,10 @@ public class MedKitItemPresenter : InventoryItemPresenter
     {
         ResetInteractionPanelListeners();
 
+        float weight = _medKitParameters.OneItemWeight * _medKit.ItemsCount;
+
         _interactionPanel.ShowConsumablesPanel(
-            _medKitParameters.ItemTitle, _medKitParameters.ActionTitle, _medKitParameters.ItemSprite);
+            _medKitParameters.ItemTitle, _medKitParameters.ActionTitle, _medKitParameters.ItemSprite, weight);
 
         InitializeDeleteButton();
         InitializeInteractionButton();

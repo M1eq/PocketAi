@@ -34,8 +34,10 @@ public class AmmoItemPresenter : InventoryItemPresenter
     {
         ResetInteractionPanelListeners();
 
+        float weight = _ammoParameters.OneItemWeight * _ammo.ItemsCount;
+
         _interactionPanel.ShowConsumablesPanel(
-            _ammoParameters.ItemTitle, _ammoParameters.ActionTitle, _ammoParameters.ItemSprite);
+            _ammoParameters.ItemTitle, _ammoParameters.ActionTitle, _ammoParameters.ItemSprite, weight);
 
         InitializeDeleteButton();
         InitializeInteractionButton();

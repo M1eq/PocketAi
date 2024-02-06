@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e73ddb9181df15439ec71a13c0cbbd3, type: 3}
   m_Name: Cap
   m_EditorClassIdentifier: 
+  Id: 6b3120d9-5422-4efb-81da-d670b19328ab
   <ItemTitle>k__BackingField: "\u041A\u0435\u043F\u043A\u0430"
   <ItemSprite>k__BackingField: {fileID: 21300000, guid: 80fe5fe6f7df1ab4a988294033981944, type: 3}
   <CountInStack>k__BackingField: 1

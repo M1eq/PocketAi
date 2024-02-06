@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1957a5af78c6004f8e6a768a0749293, type: 3}
   m_Name: BodyArmor
   m_EditorClassIdentifier: 
+  Id: 615e0522-4c11-46e9-9fa1-3769d7902004
   <ItemTitle>k__BackingField: "\u0411\u0440\u043E\u043D\u0435\u0436\u0438\u043B\u0435\u0442"
   <ItemSprite>k__BackingField: {fileID: 21300000, guid: fdf6c51eb73e226419bb1a3b4b7edb50, type: 3}
   <CountInStack>k__BackingField: 1

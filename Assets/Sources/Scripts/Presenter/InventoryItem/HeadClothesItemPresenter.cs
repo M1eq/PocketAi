@@ -35,8 +35,10 @@ public class HeadClothesItemPresenter : InventoryItemPresenter
     {
         ResetInteractionPanelListeners();
 
-        _interactionPanel.ShowClothesPanel(
-            _headClothesParameters.ItemTitle, _headClothesParameters.ActionTitle, _headClothesParameters.ItemSprite);
+        float weight = _headClothesParameters.OneItemWeight * _headClothes.ItemsCount;
+
+        _interactionPanel.ShowClothesPanel(_headClothesParameters.ItemTitle, _headClothesParameters.ActionTitle,
+            _headClothesParameters.ItemSprite, weight, _headClothesParameters.ProtectionScoreCount);
 
         InitializeDeleteButton();
         InitializeInteractionButton();

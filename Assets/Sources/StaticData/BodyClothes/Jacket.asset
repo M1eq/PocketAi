@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1957a5af78c6004f8e6a768a0749293, type: 3}
   m_Name: Jacket
   m_EditorClassIdentifier: 
+  Id: be66f70c-96c3-45ee-bb23-cbe8cb135c60
   <ItemTitle>k__BackingField: "\u041A\u0443\u0440\u0442\u043A\u0430"
   <ItemSprite>k__BackingField: {fileID: 21300000, guid: 6496a12dfe25ecc47951f338f773de8e, type: 3}
   <CountInStack>k__BackingField: 1

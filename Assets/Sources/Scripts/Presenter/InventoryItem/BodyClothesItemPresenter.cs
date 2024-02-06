@@ -35,8 +35,10 @@ public class BodyClothesItemPresenter : InventoryItemPresenter
     {
         ResetInteractionPanelListeners();
 
-        _interactionPanel.ShowClothesPanel(
-            _bodyClothesParameters.ItemTitle, _bodyClothesParameters.ActionTitle, _bodyClothesParameters.ItemSprite);
+        float weight = _bodyClothesParameters.OneItemWeight * _bodyClothes.ItemsCount;
+
+        _interactionPanel.ShowClothesPanel(_bodyClothesParameters.ItemTitle, _bodyClothesParameters.ActionTitle,
+            _bodyClothesParameters.ItemSprite, weight, _bodyClothesParameters.ProtectionScoreCount);
 
         InitializeDeleteButton();
         InitializeInteractionButton();

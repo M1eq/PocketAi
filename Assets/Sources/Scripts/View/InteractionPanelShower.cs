@@ -11,23 +11,33 @@ public class InteractionPanelShower : MonoBehaviour
     [SerializeField] private TMP_Text _itemTitleText;
     [SerializeField] private TMP_Text _interactionButtonTitle;
     [SerializeField] private TMP_Text _protectionCountText;
+    [SerializeField] private TMP_Text _weightText;
     [SerializeField] private Image _itemIcon;
     [SerializeField] private Image _protectionIcon;
     [SerializeField] private Button _deleteButton;
     [SerializeField] private Button _interactionButton;
 
-    public void ShowClothesPanel(string itemTitle, string interactionTitle, Sprite itemSprite) => 
-        Show(itemTitle, interactionTitle, itemSprite, true);
-    public void ShowConsumablesPanel(string itemTitle, string interactionTitle, Sprite itemSprite) => 
-        Show(itemTitle, interactionTitle, itemSprite, false);
+    public void ShowClothesPanel(string itemTitle, string interactionTitle, Sprite itemSprite, float weight, int protection)
+    {
+        ShowPanel(itemTitle, interactionTitle, itemSprite, true, weight);
+        ShowProtection(protection);
+    }
 
-    private void Show(string itemTitle, string interactionTitle, Sprite itemSprite, bool activateProtectionIcon)
+    public void ShowConsumablesPanel(string itemTitle, string interactionTitle, Sprite itemSprite, float weight)
+    {
+        ShowPanel(itemTitle, interactionTitle, itemSprite, false, weight);
+    }
+
+    private void ShowPanel(string itemTitle, string interactionTitle, Sprite itemSprite, bool activateProtectionIcon, float weight)
     {
         _protectionIcon.gameObject.SetActive(activateProtectionIcon);
         _interactionButtonTitle.text = interactionTitle;
+        _weightText.text = weight.ToString();
         _itemTitleText.text = itemTitle;
         _itemIcon.sprite = itemSprite;
 
-        _itemPanel.gameObject.SetActive(true);
+        _itemPanel.SetActive(true);
     }
+
+    private void ShowProtection(int protection) => _protectionCountText.text = protection.ToString();
 }
